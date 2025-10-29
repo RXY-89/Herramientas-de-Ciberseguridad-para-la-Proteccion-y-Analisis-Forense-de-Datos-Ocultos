@@ -1,15 +1,16 @@
-## 🔐 Tarea 1
-- **Titulo**:Ocultamiento y Detección de Información Mediante Esteganografía.
-- **Proposito**:Desarrollar una herramienta para insertar datos secretos dentro de un archivo carrier y otra para detectar o extraer el mensaje oculto.
-- **Rol o area relacionada**: DFIR / Blue Team (análisis de malware)
-- **Entradas esperadas**: Carrier: Archivo de imagen, audio o PDF (ejemplo: img.png, chaos.wav, cassie_explained.pdf ). Mensaje: Archivo de texto (secreto.txt).
-- **Salidas esperadas**:Archivo original: Archivo carrier con el mensaje oculto (por ejemplo estego.png). Extracción: Archivo de texto con el mensaje recuperado (mensaje_extraido.txt).
-- **Descripcion del procedimiento**: Implementar una función para introducir el mensaje en el carrier y otra función inversa para revelarlo.
-- **Complejidad y tectica**: Librerías, la codificación y decodificación además del parsing de formatos de archivo.
-- **Controles eticos**: Uso exclusivo de imágenes y archivos de texto creados por el equipo para ese fin en específico.
-- **Dependencias**: Librerías en Python: Pillow, un módulo de esteganografía. (Le puse así porque tengo que checar que librerías usamos con los ejercicios de la maestra ya que no recuerdo).
+## Tarea 1 
+**Título:** Ocultamiento y Detección de Información Mediante Esteganografía. 
+**Propósito:** Desarrollar una herramienta para insertar datos secretos dentro de un archivo carrier y otra para detectar o extraer el mensaje oculto. 
+**Rol o área relacionada:** DFIR / Blue Team (análisis de malware) 
+**Entradas esperadas:** Carrier: Archivo de imagen, audio o PDF (ejemplo: img.png, chaos.wav, cassie_explained.pdf ). Mensaje: Archivo de texto (secreto.txt). 
+**Salidas esperadas:** Archivo original: Archivo carrier con el mensaje oculto (por ejemplo estego.png). Extracción: Archivo de texto con el mensaje recuperado (mensaje_extraido.txt). 
+**Descripción del procedimiento:** Implementar una función para introducir el mensaje en el carrier y otra función inversa para revelarlo. 
+**Complejidad técnica:** Librerías, además del parsing de formatos de archivo. 
+**Controles éticos:** Uso exclusivo de imágenes y archivos de texto creados por el equipo para ese fin en específico. 
+**Dependencias:** Librerías en Python: Pillow. 
+//Commit hecho por Xochilpilli Castillo Andrade.
   
-### 🧭 Tarea 2
+### Tarea 2
 - **Título**: Utilería de Protección de Datos: Cifrado Simétrico y Hashing Forense con PowerShell
 - **Propósito**: Crear un script para generar y verificar hashes criptográficos SHA-256 de archivos usando PowerShell. 
 - **Rol o área relacionada**: Blue Team (en protección de datos) / DFIR (en este caso como análisis de integridad).
@@ -21,7 +22,7 @@ Reporte de cambios (txt): (ejemplo: cambios_carpeta_20251027095007.txt)
 - **Controles éticos**: Solo se analizarán y hashearán archivos designados para ese propósito en específico sin información sensible en ellos.
 - **Dependencias**: Librerías en Python:  json y pathlib Entorno: Sistema operativo Windows con PowerShell 5.1 o superior disponible. Comando: Get-FileHash de PowerShell.
 
-### 🧠 Tarea 3
+### Tarea 3
 - **Título**: Análisis Forense de Metadatos  
 - **Propósito**: Desarrollar una utilidad para extraer, analizar y generar reportes legibles a partir de los metadatos de archivos comunes. 
 - **Rol o área relacionada**: DFIR

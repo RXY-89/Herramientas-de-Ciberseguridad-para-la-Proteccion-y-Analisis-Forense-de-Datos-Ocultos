@@ -1,6 +1,4 @@
-# ------------------------------------------
 # Tarea 1
-# ------------------------------------------
 # Este programa permite esconder (ocultar) un mensaje de texto dentro de una imagen
 # y también recuperarlo después. Usa la librería Pillow.
 
@@ -71,10 +69,7 @@ def extraer_texto(imagen_modificada, archivo_salida):
 
     print(f" Mensaje extraído y guardado en {archivo_salida}")
 
-
-# -------------------------------------------------------
 # Ejemplo de uso (se ejecuta solo si corres el archivo)
-# -------------------------------------------------------
 if __name__ == "__main__":
     # Rutas de ejemplo (ajustadas a tu estructura)
     imagen_original = ORIGINALES / "imagenes" / "ejemplo.png"

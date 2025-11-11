@@ -1,147 +1,104 @@
-import os
 import json
+import wave
+import fitz  # PyMuPDF
 from PIL import Image
-from PyPDF2 import PdfReader, PdfWriter
-from pydub import AudioSegment
+import os
 
-# === UTILIDAD GENERAL ===
-def guardar_en_jsonl(datos, archivo="mensajes.jsonl"):
+def guardar_jsonl(mensaje, archivo="mensajes.jsonl"):
     with open(archivo, "a", encoding="utf-8") as f:
-        f.write(json.dumps(datos, ensure_ascii=False) + "\n")
-    print(f" Mensaje guardado en {archivo}")
+        f.write(json.dumps({"mensaje": mensaje}) + "\n")
 
-
-# === OCULTAR MENSAJE ===
-def ocultar_mensaje(ruta_archivo, mensaje, salida):
-    ext = os.path.splitext(ruta_archivo)[1].lower()
+def ocultar_en_imagen(imagen_path, mensaje, salida):
     try:
-        if ext in [".png", ".jpg", ".jpeg"]:
-            imagen = Image.open(ruta_archivo)
-            datos = list(imagen.getdata())
+        img = Image.open(imagen_path)
+        bin_mensaje = ''.join(format(ord(i), '08b') for i in mensaje)
+        pixeles = img.load()
 
-            mensaje_bits = ''.join(format(ord(c), '08b') for c in mensaje)
-            mensaje_bits += '1111111111111110'  # fin del mensaje
+        if len(bin_mensaje) > img.width * img.height:
+            raise ValueError("El mensaje es demasiado largo para esta imagen")
 
-            nuevos_datos = []
-            bit_index = 0
+        data = list(img.getdata())
+        new_data = []
+        msg_index = 0
+        for pixel in data:
+            pixel_list = list(pixel)
+            for i in range(3):
+                if msg_index < len(bin_mensaje):
+                    pixel_list[i] = pixel_list[i] & ~1 | int(bin_mensaje[msg_index])
+                    msg_index += 1
+            new_data.append(tuple(pixel_list))
 
-            for pixel in datos:
-                r, g, b = pixel[:3]
-                if bit_index < len(mensaje_bits):
-                    r = (r & ~1) | int(mensaje_bits[bit_index])
-                    bit_index += 1
-                if bit_index < len(mensaje_bits):
-                    g = (g & ~1) | int(mensaje_bits[bit_index])
-                    bit_index += 1
-                if bit_index < len(mensaje_bits):
-                    b = (b & ~1) | int(mensaje_bits[bit_index])
-                    bit_index += 1
-                nuevos_datos.append((r, g, b))
-
-            imagen.putdata(nuevos_datos)
-            imagen.save(salida)
-            print(f" Mensaje ocultado en {salida}")
-
-        elif ext == ".pdf":
-            reader = PdfReader(ruta_archivo)
-            writer = PdfWriter()
-
-            for page in reader.pages:
-                writer.add_page(page)
-
-            metadata = reader.metadata or {}
-            metadata.update({"/Oculto": mensaje})
-            writer.add_metadata(metadata)
-
-            with open(salida, "wb") as f:
-                writer.write(f)
-
-            print(f" Mensaje ocultado en metadatos de {salida}")
-
-        elif ext in [".mp3", ".wav"]:
-            audio = AudioSegment.from_file(ruta_archivo)
-            tags = {"comment": mensaje}
-            audio.export(salida, format=ext.replace(".", ""), tags=tags)
-            print(f" Mensaje ocultado en {salida}")
-
-        else:
-            raise ValueError(" Tipo de archivo no compatible para ocultar mensajes")
-
-        # Guarda registro JSONL
-        datos = {
-            "archivo_original": ruta_archivo,
-            "archivo_modificado": salida,
-            "mensaje_oculto": mensaje
-        }
-        guardar_en_jsonl(datos)
-
+        img.putdata(new_data)
+        img.save(salida)
+        guardar_jsonl(mensaje)
+        print(f" Mensaje ocultado en imagen: {salida}")
     except Exception as e:
-        print(f" Error al ocultar el mensaje: {e}")
+        print(f" Error al ocultar en imagen: {e}")
 
-
-# === REVELAR MENSAJE ===
-def revelar_mensaje(ruta_archivo):
-    ext = os.path.splitext(ruta_archivo)[1].lower()
+def ocultar_en_pdf(pdf_path, mensaje, salida):
     try:
-        if ext in [".png", ".jpg", ".jpeg"]:
-            imagen = Image.open(ruta_archivo)
-            datos = list(imagen.getdata())
-            bits = ""
-
-            for pixel in datos:
-                for color in pixel[:3]:
-                    bits += str(color & 1)
-
-            mensaje = ""
-            for i in range(0, len(bits), 8):
-                byte = bits[i:i + 8]
-                if byte == '11111110':
-                    break
-                mensaje += chr(int(byte, 2))
-
-            print(f" Mensaje revelado: {mensaje}")
-
-        elif ext == ".pdf":
-            reader = PdfReader(ruta_archivo)
-            metadata = reader.metadata
-            if "/Oculto" in metadata:
-                print(f" Mensaje revelado desde PDF: {metadata['/Oculto']}")
-            else:
-                print(" No se encontró mensaje oculto en el PDF")
-
-        elif ext in [".mp3", ".wav"]:
-            audio = AudioSegment.from_file(ruta_archivo)
-            tags = getattr(audio, "tags", None)
-            if tags and "comment" in tags:
-                print(f" Mensaje revelado desde audio: {tags['comment']}")
-            else:
-                print(" No se encontró mensaje oculto en el audio")
-
-        else:
-            raise ValueError(" Tipo de archivo no compatible para revelar mensajes")
-
+        doc = fitz.open(pdf_path)
+        metadata = doc.metadata or {}
+        metadata["mensaje_oculto"] = mensaje
+        doc.set_metadata(metadata)
+        doc.save(salida)
+        guardar_jsonl(mensaje)
+        print(f" Mensaje ocultado en PDF: {salida}")
     except Exception as e:
-        print(f" Error al revelar mensaje: {e}")
+        print(f" Error al ocultar en PDF: {e}")
 
+def ocultar_en_audio(audio_path, mensaje, salida):
+    try:
+        with wave.open(audio_path, 'rb') as audio:
+            frames = bytearray(list(audio.readframes(audio.getnframes())))
+            bin_mensaje = ''.join(format(ord(i), '08b') for i in mensaje)
+            bin_mensaje += '1111111111111110'
 
-# === MENÚ PRINCIPAL ===
-if __name__ == "__main__":
+            for i in range(len(bin_mensaje)):
+                frames[i] = (frames[i] & 254) | int(bin_mensaje[i])
+
+            with wave.open(salida, 'wb') as nuevo_audio:
+                nuevo_audio.setparams(audio.getparams())
+                nuevo_audio.writeframes(frames)
+        guardar_jsonl(mensaje)
+        print(f" Mensaje ocultado en audio: {salida}")
+    except Exception as e:
+        print(f" Error al ocultar en audio: {e}")
+
+def revelar_de_jsonl(archivo="mensajes.jsonl"):
+    try:
+        with open(archivo, "r", encoding="utf-8") as f:
+            for linea in f:
+                print("💬", json.loads(linea)["mensaje"])
+    except Exception as e:
+        print(f" Error al leer JSONL: {e}")
+
+def main():
     print("=== Esteganografía - PIA Entregable 2 ===")
     print("1. Ocultar mensaje")
-    print("2. Revelar mensaje")
-
+    print("2. Revelar mensajes guardados")
     opcion = input("Elige una opción (1 o 2): ")
 
     if opcion == "1":
-        ruta = input("Ingresa la ruta del archivo original: ").strip('"')
+        archivo = input("Ingresa la ruta del archivo original: ").strip('"')
         mensaje = input("Escribe el mensaje que quieres ocultar: ")
-        salida = input("Ingresa el nombre del archivo de salida: ")
-        ocultar_mensaje(ruta, mensaje, salida)
+        salida = input("Ingresa el nombre del archivo de salida (con extensión): ")
+
+        if archivo.lower().endswith(('.png', '.jpg', '.jpeg')):
+            ocultar_en_imagen(archivo, mensaje, salida)
+        elif archivo.lower().endswith('.pdf'):
+            ocultar_en_pdf(archivo, mensaje, salida)
+        elif archivo.lower().endswith('.wav'):
+            ocultar_en_audio(archivo, mensaje, salida)
+        else:
+            print(" Formato no soportado. Usa .png, .jpg, .pdf o .wav")
 
     elif opcion == "2":
-        ruta = input("Ingresa la ruta del archivo con mensaje oculto: ").strip('"')
-        revelar_mensaje(ruta)
-
+        revelar_de_jsonl()
     else:
-        print("⚠️ Opción inválida.")
+        print("Opción inválida.")
+
+if __name__ == "__main__":
+    main()
+
 

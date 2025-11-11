@@ -81,13 +81,13 @@ def revelar_mensaje(ruta_imagen):
         logging.info(f"Mensaje revelado y guardado en {nombre_archivo}")
         print("💬 Mensaje oculto encontrado:")
         print(mensaje)
-        print(f"📁 El mensaje fue guardado en: {nombre_archivo}")
+        print(f" El mensaje fue guardado en: {nombre_archivo}")
 
         return mensaje
 
     except Exception as e:
         logging.error(f"Error al revelar el mensaje: {e}")
-        print(f"❌ Error al revelar el mensaje: {e}")
+        print(f" Error al revelar el mensaje: {e}")
 
 # EJECUCIÓN PRINCIPAL
 if __name__ == "__main__":

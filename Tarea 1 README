@@ -1,7 +1,7 @@
 # Tarea 1 - Ocultamiento y Detección de Información mediante Esteganografía
 
 ## Descripción general
-Esta tarea forma parte del Proyecto Integrador de Aplicación (PIA) y tiene como objetivo crear una herramienta capaz de ocultar información dentro de un archivo carrier (imagen, audio o PDF) y luego poder extraerla nuevamente.  
+Tiene como objetivo crear una herramienta capaz de ocultar información dentro de un archivo carrier (imagen, audio o PDF) y luego poder extraerla nuevamente.  
 La técnica utilizada se conoce como **esteganografía**, la cual permite insertar un mensaje secreto dentro de otro archivo sin que sea evidente a simple vista.
 
 ## Objetivo

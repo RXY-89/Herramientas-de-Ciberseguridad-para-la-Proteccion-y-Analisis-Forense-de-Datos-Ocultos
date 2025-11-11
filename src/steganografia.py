@@ -1,6 +1,5 @@
 # Programa de esteganografía con registro de acciones (logs)
 # Descripción: Este programa permite ocultar y revelar mensajes en imágenes
-# usando la técnica de Esteganografía. Además guarda registros de lo que se hace.
 
 from PIL import Image
 import logging
@@ -16,7 +15,6 @@ logging.basicConfig(
 logging.info("Inicio del programa de esteganografía")
 
 # FUNCIONES PRINCIPALES
-
 def ocultar_mensaje(ruta_imagen, mensaje, ruta_salida):
     """Oculta un mensaje de texto dentro de una imagen."""
     try:
@@ -55,7 +53,7 @@ def ocultar_mensaje(ruta_imagen, mensaje, ruta_salida):
 
 
 def revelar_mensaje(ruta_imagen):
-    """Extrae el mensaje oculto de una imagen."""
+    """Extrae el mensaje oculto de una imagen y lo guarda en un archivo .txt."""
     try:
         imagen = Image.open(ruta_imagen)
         imagen = imagen.convert("RGB")
@@ -75,17 +73,23 @@ def revelar_mensaje(ruta_imagen):
                 break
             mensaje += chr(int(byte, 2))
 
-        logging.info(f"Mensaje revelado correctamente desde {ruta_imagen}")
+        # Guardamos el mensaje extraído en un archivo de texto
+        nombre_archivo = f"mensaje_revelado_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        with open(nombre_archivo, "w", encoding="utf-8") as f:
+            f.write(mensaje)
+
+        logging.info(f"Mensaje revelado y guardado en {nombre_archivo}")
         print("💬 Mensaje oculto encontrado:")
         print(mensaje)
+        print(f"📁 El mensaje fue guardado en: {nombre_archivo}")
+
         return mensaje
 
     except Exception as e:
         logging.error(f"Error al revelar el mensaje: {e}")
-        print(f" Error al revelar el mensaje: {e}")
+        print(f"❌ Error al revelar el mensaje: {e}")
 
-
-# EJEMPLO DE USO (puedes cambiar los nombres de los archivos)
+# EJECUCIÓN PRINCIPAL
 if __name__ == "__main__":
     print("=== Esteganografía - PIA Entregable 2 ===")
     print("1. Ocultar mensaje")
@@ -105,3 +109,4 @@ if __name__ == "__main__":
     else:
         print("Opción no válida.")
         logging.warning("Se eligió una opción no válida en el menú.")
+

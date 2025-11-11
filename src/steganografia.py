@@ -1,190 +1,147 @@
-import wave
+import os
+import json
 from PIL import Image
 from PyPDF2 import PdfReader, PdfWriter
-import logging
-import os
+from pydub import AudioSegment
 
-# CONFIGURACIÓN DEL SISTEMA DE REGISTRO
-logging.basicConfig(
-    filename="registro_esteganografia.log",
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+# === UTILIDAD GENERAL ===
+def guardar_en_jsonl(datos, archivo="mensajes.jsonl"):
+    with open(archivo, "a", encoding="utf-8") as f:
+        f.write(json.dumps(datos, ensure_ascii=False) + "\n")
+    print(f" Mensaje guardado en {archivo}")
 
-# FUNCIÓN: OCULTAR MENSAJE EN IMAGEN
-def ocultar_en_imagen(imagen_path, mensaje, salida_path):
+
+# === OCULTAR MENSAJE ===
+def ocultar_mensaje(ruta_archivo, mensaje, salida):
+    ext = os.path.splitext(ruta_archivo)[1].lower()
     try:
-        imagen = Image.open(imagen_path)
-        binario = ''.join(format(ord(i), '08b') for i in mensaje) + '1111111111111110'
-        pixeles = imagen.load()
+        if ext in [".png", ".jpg", ".jpeg"]:
+            imagen = Image.open(ruta_archivo)
+            datos = list(imagen.getdata())
 
-        ancho, alto = imagen.size
-        contador = 0
+            mensaje_bits = ''.join(format(ord(c), '08b') for c in mensaje)
+            mensaje_bits += '1111111111111110'  # fin del mensaje
 
-        for y in range(alto):
-            for x in range(ancho):
-                if contador < len(binario):
-                    pixel = list(pixeles[x, y])
-                    pixel[0] = (pixel[0] & ~1) | int(binario[contador])
-                    pixeles[x, y] = tuple(pixel)
-                    contador += 1
+            nuevos_datos = []
+            bit_index = 0
 
-        imagen.save(salida_path)
-        logging.info(f"Mensaje ocultado en imagen: {salida_path}")
-        print(f" Mensaje ocultado correctamente en {salida_path}")
-    except Exception as e:
-        logging.error(f"Error al ocultar en imagen: {e}")
-        print(f" Error al ocultar en imagen: {e}")
+            for pixel in datos:
+                r, g, b = pixel[:3]
+                if bit_index < len(mensaje_bits):
+                    r = (r & ~1) | int(mensaje_bits[bit_index])
+                    bit_index += 1
+                if bit_index < len(mensaje_bits):
+                    g = (g & ~1) | int(mensaje_bits[bit_index])
+                    bit_index += 1
+                if bit_index < len(mensaje_bits):
+                    b = (b & ~1) | int(mensaje_bits[bit_index])
+                    bit_index += 1
+                nuevos_datos.append((r, g, b))
 
-# FUNCIÓN: REVELAR MENSAJE EN IMAGEN
-def revelar_en_imagen(imagen_path):
-    try:
-        imagen = Image.open(imagen_path)
-        pixeles = imagen.load()
-        ancho, alto = imagen.size
-        bits = ""
+            imagen.putdata(nuevos_datos)
+            imagen.save(salida)
+            print(f" Mensaje ocultado en {salida}")
 
-        for y in range(alto):
-            for x in range(ancho):
-                bits += str(pixeles[x, y][0] & 1)
+        elif ext == ".pdf":
+            reader = PdfReader(ruta_archivo)
+            writer = PdfWriter()
 
-        bytes_mensaje = [bits[i:i+8] for i in range(0, len(bits), 8)]
-        mensaje = ""
-        for b in bytes_mensaje:
-            if b == '11111110':
-                break
-            mensaje += chr(int(b, 2))
+            for page in reader.pages:
+                writer.add_page(page)
 
-        logging.info(f"Mensaje revelado desde imagen: {imagen_path}")
-        print(" Mensaje oculto encontrado:")
-        print(mensaje)
-    except Exception as e:
-        logging.error(f"Error al revelar mensaje en imagen: {e}")
-        print(f" Error al revelar mensaje en imagen: {e}")
+            metadata = reader.metadata or {}
+            metadata.update({"/Oculto": mensaje})
+            writer.add_metadata(metadata)
 
+            with open(salida, "wb") as f:
+                writer.write(f)
 
-# FUNCIÓN: OCULTAR MENSAJE EN AUDIO
+            print(f" Mensaje ocultado en metadatos de {salida}")
 
-def ocultar_en_audio(audio_path, mensaje, salida_path):
-    try:
-        audio = wave.open(audio_path, mode='rb')
-        frames = bytearray(list(audio.readframes(audio.getnframes())))
-        params = audio.getparams()
-        audio.close()
+        elif ext in [".mp3", ".wav"]:
+            audio = AudioSegment.from_file(ruta_archivo)
+            tags = {"comment": mensaje}
+            audio.export(salida, format=ext.replace(".", ""), tags=tags)
+            print(f" Mensaje ocultado en {salida}")
 
-        binario = ''.join(format(ord(i), '08b') for i in mensaje) + '1111111111111110'
-
-        if len(binario) > len(frames):
-            raise ValueError("El mensaje es demasiado grande para ocultarlo en este audio.")
-
-        for i in range(len(binario)):
-            frames[i] = (frames[i] & 254) | int(binario[i])
-
-        with wave.open(salida_path, 'wb') as nuevo_audio:
-            nuevo_audio.setparams(params)
-            nuevo_audio.writeframes(bytes(frames))
-
-        logging.info(f"Mensaje ocultado en audio: {salida_path}")
-        print(f" Mensaje ocultado correctamente en {salida_path}")
-    except Exception as e:
-        logging.error(f"Error al ocultar en audio: {e}")
-        print(f" Error al ocultar en audio: {e}")
-
-# FUNCIÓN: REVELAR MENSAJE EN AUDIO
-def revelar_en_audio(audio_path):
-    try:
-        audio = wave.open(audio_path, mode='rb')
-        frames = bytearray(list(audio.readframes(audio.getnframes())))
-        bits = [str(frames[i] & 1) for i in range(len(frames))]
-        bytes_mensaje = [bits[i:i+8] for i in range(0, len(bits), 8)]
-        mensaje = ""
-
-        for b in bytes_mensaje:
-            if ''.join(b) == '11111110':
-                break
-            mensaje += chr(int(''.join(b), 2))
-
-        audio.close()
-        logging.info(f"Mensaje revelado desde audio: {audio_path}")
-        print(" Mensaje oculto encontrado:")
-        print(mensaje)
-    except Exception as e:
-        logging.error(f"Error al revelar mensaje en audio: {e}")
-        print(f" Error al revelar mensaje en audio: {e}")
-
-# FUNCIÓN: OCULTAR MENSAJE EN PDF
-def ocultar_en_pdf(pdf_path, mensaje, salida_path):
-    try:
-        reader = PdfReader(pdf_path)
-        writer = PdfWriter()
-
-        for page in reader.pages:
-            writer.add_page(page)
-
-        # Insertamos el mensaje oculto en los metadatos del PDF
-        writer.add_metadata({"/MensajeOculto": mensaje})
-
-        with open(salida_path, "wb") as salida:
-            writer.write(salida)
-
-        logging.info(f"Mensaje ocultado en PDF: {salida_path}")
-        print(f" Mensaje ocultado correctamente en {salida_path}")
-    except Exception as e:
-        logging.error(f"Error al ocultar en PDF: {e}")
-        print(f" Error al ocultar en PDF: {e}")
-
-# FUNCIÓN: REVELAR MENSAJE EN PDF
-def revelar_en_pdf(pdf_path):
-    try:
-        reader = PdfReader(pdf_path)
-        info = reader.metadata
-        mensaje = info.get("/MensajeOculto", None)
-        if mensaje:
-            print(" Mensaje oculto encontrado en el PDF:")
-            print(mensaje)
-            logging.info(f"Mensaje revelado desde PDF: {pdf_path}")
         else:
-            print(" No se encontró ningún mensaje oculto en los metadatos.")
+            raise ValueError(" Tipo de archivo no compatible para ocultar mensajes")
+
+        # Guarda registro JSONL
+        datos = {
+            "archivo_original": ruta_archivo,
+            "archivo_modificado": salida,
+            "mensaje_oculto": mensaje
+        }
+        guardar_en_jsonl(datos)
+
     except Exception as e:
-        logging.error(f"Error al revelar mensaje en PDF: {e}")
-        print(f" Error al revelar mensaje en PDF: {e}")
+        print(f" Error al ocultar el mensaje: {e}")
 
 
-# PROGRAMA PRINCIPAL
-def main():
-    print("===  Esteganografía Multiformato - PIA Entregable 2 ===")
+# === REVELAR MENSAJE ===
+def revelar_mensaje(ruta_archivo):
+    ext = os.path.splitext(ruta_archivo)[1].lower()
+    try:
+        if ext in [".png", ".jpg", ".jpeg"]:
+            imagen = Image.open(ruta_archivo)
+            datos = list(imagen.getdata())
+            bits = ""
+
+            for pixel in datos:
+                for color in pixel[:3]:
+                    bits += str(color & 1)
+
+            mensaje = ""
+            for i in range(0, len(bits), 8):
+                byte = bits[i:i + 8]
+                if byte == '11111110':
+                    break
+                mensaje += chr(int(byte, 2))
+
+            print(f" Mensaje revelado: {mensaje}")
+
+        elif ext == ".pdf":
+            reader = PdfReader(ruta_archivo)
+            metadata = reader.metadata
+            if "/Oculto" in metadata:
+                print(f" Mensaje revelado desde PDF: {metadata['/Oculto']}")
+            else:
+                print(" No se encontró mensaje oculto en el PDF")
+
+        elif ext in [".mp3", ".wav"]:
+            audio = AudioSegment.from_file(ruta_archivo)
+            tags = getattr(audio, "tags", None)
+            if tags and "comment" in tags:
+                print(f" Mensaje revelado desde audio: {tags['comment']}")
+            else:
+                print(" No se encontró mensaje oculto en el audio")
+
+        else:
+            raise ValueError(" Tipo de archivo no compatible para revelar mensajes")
+
+    except Exception as e:
+        print(f" Error al revelar mensaje: {e}")
+
+
+# === MENÚ PRINCIPAL ===
+if __name__ == "__main__":
+    print("=== Esteganografía - PIA Entregable 2 ===")
     print("1. Ocultar mensaje")
     print("2. Revelar mensaje")
+
     opcion = input("Elige una opción (1 o 2): ")
 
-    tipo = input("Selecciona tipo de archivo (imagen / audio / pdf): ").lower()
-
     if opcion == "1":
-        archivo = input("Ruta del archivo original: ")
-        mensaje = input("Mensaje a ocultar: ")
-        salida = input("Nombre del archivo de salida (ej. salida.png, salida.wav o salida.pdf): ")
+        ruta = input("Ingresa la ruta del archivo original: ").strip('"')
+        mensaje = input("Escribe el mensaje que quieres ocultar: ")
+        salida = input("Ingresa el nombre del archivo de salida: ")
+        ocultar_mensaje(ruta, mensaje, salida)
 
-        if tipo == "imagen":
-            ocultar_en_imagen(archivo, mensaje, salida)
-        elif tipo == "audio":
-            ocultar_en_audio(archivo, mensaje, salida)
-        elif tipo == "pdf":
-            ocultar_en_pdf(archivo, mensaje, salida)
-        else:
-            print(" Tipo no válido.")
     elif opcion == "2":
-        archivo = input("Ruta del archivo con mensaje oculto: ")
+        ruta = input("Ingresa la ruta del archivo con mensaje oculto: ").strip('"')
+        revelar_mensaje(ruta)
 
-        if tipo == "imagen":
-            revelar_en_imagen(archivo)
-        elif tipo == "audio":
-            revelar_en_audio(archivo)
-        elif tipo == "pdf":
-            revelar_en_pdf(archivo)
-        else:
-            print(" Tipo no válido.")
     else:
-        print(" Opción no válida.")
+        print("⚠️ Opción inválida.")
 
-if __name__ == "__main__":
-    main()

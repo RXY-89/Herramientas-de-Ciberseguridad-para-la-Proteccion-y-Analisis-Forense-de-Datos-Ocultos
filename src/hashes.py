@@ -1,6 +1,6 @@
-import subprocess,os,json
+import subprocess,json
 from pathlib import Path
-from datetime import datetime,timezone
+from datetime import datetime
 try:
     from loguru import logger
 except ImportError:
@@ -18,17 +18,7 @@ logger.remove()
 logger.add(ruta_logging, format="{time} - {level} - {extra[run_id]} - {extra[event]} - {extra[details]}", level="INFO")      
 log = logger.bind(run_id=f"RUN_{fecha}",)
 
-try:
-    from keyboard import read_key
-except ImportError:
-    log.critical("", event="import_error", details="El modulo 'keyboard' no se encuentra instalado.")
-    print("El módulo 'keyboard' no se encuentra instalado. Por favor, instálelo e intente de nuevo.")
-    exit(1)
-
-def limpiar():
-    os.system("cls" if os.name == "nt" else "clear")
-
-def ejecutar_powershell(ruta, guardar="False", archivo="None"):
+def ejecutar_powershell(ruta: Path, guardar="False", archivo="None"):
     log.debug("", event="ejecutar_powershell",details=f"Ejecutando PowerShell con ruta: {ruta}, guardar: {guardar}, archivo: {archivo}")
     resultado = subprocess.run(
         ["powershell", "-File", ruta_script, "-ruta", ruta, "-guardar", guardar, "-archivo", archivo],
@@ -40,7 +30,7 @@ def ejecutar_powershell(ruta, guardar="False", archivo="None"):
     else:
         raise RuntimeError(resultado.stderr)
     
-def checar_hashes_carpeta(ruta):
+def checar_hashes_carpeta(ruta: Path):
         
     nombre=ruta.name.replace(".","_")
     lista_hashes=ruta_hashes / f"hashes_{nombre}.json"
@@ -98,13 +88,14 @@ def checar_hashes_carpeta(ruta):
         log.debug("", event="changes_reported",details=f"Se creo el reporte de cambios en {reporte}")
         log.info("", event="changes_detected",details="Cambios detectados, preguntando al usuario si desea actualizar...")
         
+        print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
+            
+        respuesta=input("¿Desea actualizar los hashes? [S/n]").strip().lower()
         while True:
-            print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
-            print("¿Desea actualizar los hashes almacenados? (s/n)")
-            respuesta=read_key()
-            if respuesta in ("s","n"):
+            if s=="s" or s=="n":
                 break
-            limpiar()
+            else:
+                s=input("Ingrese valores validos (S/n): ").strip().lower()
         
         if respuesta=="s":
             with lista_hashes.open("w", encoding="utf-8") as f:
@@ -116,7 +107,7 @@ def checar_hashes_carpeta(ruta):
         log.info("", event="no_changes_detected",details="Cambios no detectados, notificando al usuario.")
         print("No se detectaron cambios.")
 
-def checar_hashes_archivos(ruta):
+def checar_hashes_archivos(ruta: Path):
 
     lista_hashes=ruta_hashes / "lista_hashes.json"
     if not lista_hashes.exists():
@@ -160,13 +151,14 @@ def checar_hashes_archivos(ruta):
         log.debug("", event="changes_reported",details=f"Se ha reportado el cambio en {reporte}")
         log.info("", event="changes_detected",details="Cambios detectados, preguntando al usuario si desea actualizar...")
  
+        print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
+        respuesta=input("¿Desea actualizar el hash? [S/n]").strip().lower()
         while True:
-            print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
-            print("¿Desea actualizar los hashes almacenados? (s/n)")
-            respuesta=read_key()
-            if respuesta in ("s","n"):
+            if s=="s" or s=="n":
                 break
-            limpiar()
+            else:
+                s=input("Ingrese valores validos (S/n): ").strip().lower()
+        
         if respuesta=="s":
             hashes_antiguos[str(ruta)]=hashes_actuales
             with lista_hashes.open("w", encoding="utf-8") as f:
@@ -175,10 +167,8 @@ def checar_hashes_archivos(ruta):
         else:
             log.info("", event="hash_not_updated",details="El usuario decidió no actualizar el hash.")
 
-def carpeta_sin_archivos(ruta) -> bool:
-    p = Path(ruta)
-
-    for item in p.iterdir():
+def carpeta_sin_archivos(ruta: Path) -> bool:
+    for item in ruta.iterdir():
         if item.is_file():
             return False 
     return True
@@ -200,3 +190,8 @@ if ruta.exists():
 else:
     log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
     print("La ruta proporcionada no existe.")
+        checar_hashes_archivos(ruta)
+else:
+    log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
+    print("La ruta proporcionada no existe.")
+

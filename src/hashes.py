@@ -19,7 +19,7 @@ logger.add(ruta_logging, format="{time} - {level} - {extra[run_id]} - {extra[eve
 log = logger.bind(run_id=f"RUN_{fecha}",)
 
 def ejecutar_powershell(ruta: Path, guardar="False", archivo="None"):
-    log.debug("", event="ejecutar_powershell",details=f"Ejecutando PowerShell con ruta: {ruta}, guardar: {guardar}, archivo: {archivo}")
+    log.debug("", event="executing_PowerShell",details=f"Ejecutando PowerShell con ruta: {ruta}, guardar: {guardar}, archivo: {archivo}")
     resultado = subprocess.run(
         ["powershell", "-File", ruta_script, "-ruta", ruta, "-guardar", guardar, "-archivo", archivo],
         capture_output=True,
@@ -194,4 +194,5 @@ else:
 else:
     log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
     print("La ruta proporcionada no existe.")
+
 

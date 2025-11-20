@@ -25,7 +25,7 @@ Tu tarea es analizar el código y los logs proporcionados a continuación, y ofr
 * Determina la la complejidad de las secciones críticas o bucles, si aplica.
 
 ### 2. Retroalimentación y sugerencias de mejora
-* Proporciona **sugerencias de refactorización** para mejorar la legibilidad y mantenibilidad (ej. nombres de variables, división de funciones).
+* Proporciona **sugerencias de refactorización** para mejorar la legibilidad y mantenibilidad (como nombres de variables, división de funciones).
 * Identifica **posibles *bugs*** o **fallos de seguridad**.
 * Ofrece recomendaciones específicas de **optimización de rendimiento**.
 * Asegura que el código sigue las **mejores prácticas** y **patrones de diseño** del lenguaje especificado.

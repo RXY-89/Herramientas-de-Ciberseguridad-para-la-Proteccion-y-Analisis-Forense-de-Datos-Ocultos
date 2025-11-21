@@ -1,11 +1,11 @@
-from PyPDF2 import PdfReader
+from pathlib import Path
 from PIL import Image
-import csv
+import csv,sys
 try:
     from loguru import logger
 except ImportError:
     print("El modulo 'loguru' no se encuentra instalado. Por favor, instálelo e intente de nuevo.")
-    exit(1)
+    sys.exit(1)
 
 ruta_logging=Path(__file__).parent / "run.log"
 fecha=datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -15,14 +15,14 @@ log = logger.bind(run_id=f"RUN_{fecha}",)
 
 try:
     from docx import Document
-    from pathlib import Path
+    from PyPDF2 import PdfReader
     from datetime import datetime,timezone
     from mutagen import File
     import piexif
 except ImportError as e:
     log.critical("", event="Import_Error", details=f"Una de las librerias necesarias no existe {e}")
     print(f"Uno de las librerias no existe: {e}")
-    exit(1)
+    sys.exit(1)
 
 
 
@@ -189,7 +189,7 @@ def checar_metadata(lista: list):
     for ruta in lista:
         log.info("", event="checking_file", details=f"Checando la metadata de {ruta.name}")
         if not ruta.exists():
-            log.info("", event="file_not_exists", details=f"El archivo {ruta.name} no existe")
+            log.warning("", event="file_not_exists", details=f"El archivo {ruta.name} no existe")
             print(f"No existe tal archivo en {ruta}")
         elif ruta.suffix==".docx":
             dato=metadata_docx(ruta)
@@ -208,7 +208,7 @@ def checar_metadata(lista: list):
             if checar_vacio(dato):
                 metadatos[3].append(dato)
         else:
-            log.info("", event="incompatible_file", details=f"El script no saca metadatos de archivo {ruta.suffix}")
+            log.warning("", event="incompatible_file", details=f"El script no saca metadatos de archivo {ruta.suffix}")
     for tipo in [0,1,2,3]:
         if len(metadatos[tipo])>0:
             log.info("", event="saving_CSV", details=f"Guardando los metadatos correspondientes en {rutas_reportes[tipo].name}")
@@ -232,7 +232,7 @@ if __name__=="__main__":
     if not ruta_archivos.exists:
         log.error("", event="file_not_found", details="No existe el archivo de texto con los archivos")
         print(f"No existe la lista en archivos en {ruta_archivos}, por favor hágala")
-        exit(1)
+        sys.exit(1)
     archivos=[]
     for archivo in leer_parrafos(ruta_archivos):
         archivos.append(Path(archivo))
@@ -243,4 +243,4 @@ if __name__=="__main__":
     else:
         log.error("", event="empty_file", details="El archivo de texto con los archivos a analizar esta vacío")
         print("El archivo de texto esta vacio")
-        exit(1)    
+        sys.exit(1)

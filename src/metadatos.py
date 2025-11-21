@@ -11,6 +11,10 @@ from mutagen import File
 
 ruta_carpeta=Path(__file__).parent / "metadatos"
 ruta_carpeta.mkdir(parents=True, exist_ok=True)
+ruta_archivos=ruta_carpeta / "archivos.txt"
+if not ruta_archivos.exists:
+    print(f"No existe la lista en archivos en {ruta_archivos}, por favor hagala")
+    exit(1)
 rutas_reportes=[ruta_carpeta / "docx.csv",
               ruta_carpeta / "pdf.csv",
               ruta_carpeta / "img.csv",
@@ -19,6 +23,8 @@ encabezados=[["Archivo","Fecha analisis","Autor","Ultimo modificado por","Creado
              ["Archivo","Fecha analisis","Autor","Creado","Modificado","Titulo","Productor","Creador","Sujeto","XMP"],
              ["Archivo","Fecha analisis","Fabricante","Modelo","Software","Fecha captura","ISO","Exposicion","Apertura","GPS latitud","GPS longitud","GPS altitud"],
              ["Archivo","Fecha analisis","Album","Artista principal","Artista acompanamiento","Copyright","Parte conjunto","Genero","Titulo","Numero pista","Fecha grabacion","Duracion segundos"]]
+
+
 
 for tipo in [0,1,2,3]:
     if not rutas_reportes[tipo].exists():
@@ -163,9 +169,11 @@ def checar_vacio(diccionario: dict) -> bool:
 def checar_metadata(lista: list):
     print(lista)
     metadatos=[[],[],[],[]]
-    for elemento in lista:
-        ruta=Path(elemento)
-        if ruta.suffix==".docx":
+    for ruta in lista:
+        if not ruta.exists():
+            print(f"No existe tal archivo en {ruta}")
+            continue
+        elif ruta.suffix==".docx":
             dato=metadata_docx(ruta)
             if checar_vacio(dato):
                 metadatos[0].append(dato)
@@ -189,3 +197,16 @@ def checar_metadata(lista: list):
         if len(metadatos[tipo])>0:
             guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
 
+def leer_parrafos(ruta: Path) -> list:
+    rutas=[]
+    with ruta.open(encoding="utf-8") as f:
+        for parrafo in f:
+            rutas.append(parrafo.strip())
+    return rutas
+
+archivos=[]
+for archivo in leer_parrafos(ruta_archivos):
+    archivos.append(Path(archivo))
+
+if len(archivos)>0:
+    checar_metadata(archivos)

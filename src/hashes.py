@@ -1,11 +1,11 @@
-import subprocess,json
+import subprocess,json,sys
 from pathlib import Path
 from datetime import datetime
 try:
     from loguru import logger
 except ImportError:
     print("El modulo 'loguru' no se encuentra instalado. Por favor, instálelo e intente de nuevo.")
-    exit(1)
+    sys.exit(1)
 
 ruta_carpeta=Path(__file__).parent
 ruta_script=ruta_carpeta  / "sacar_hashes.ps1"
@@ -65,14 +65,18 @@ def checar_hashes_carpeta(ruta: Path):
         hashes_antiguos=json.load(f)
         for archivo in ruta.iterdir():
             if archivo.is_file():
-                if hashes_antiguos[str(archivo.name)] is None:
+                try:
+                    if hashes_actuales[str(archivo.name)] != hashes_antiguos[str(Path(archivo).name)]:
+                        documentacion.append(f"El archivo {archivo.name} ha sido modificado.")
+                        cambios=True
+                        log.debug("", event="file_modified",details=f"El archivo {archivo.name} ha sido modificado.")
+                except KeyError as e:
                     documentacion.append(f"El archivo {archivo.name} es nuevo.")
                     cambios=True
-                    log.debug("", event="new_file_detected",details=f"El archivo {archivo.name} es nuevo.")
-                elif hashes_actuales[str(archivo.name)] != hashes_antiguos[str(Path(archivo).name)]:
-                    documentacion.append(f"El archivo {archivo.name} ha sido modificado.")
-                    cambios=True
-                    log.debug("", event="file_modified",details=f"El archivo {archivo.name} ha sido modificado.")
+                    log.debug("", event="new_file_detected",details=f"El archivo {archivo.name} es nuevo.")       
+                except Exception as e:
+                    log.critical("", event="error_while_comparing",details=f"Error inesperado al intentar comparar los hashes: {e}")
+                    print(f"Error desconocido: {e}")      
         for archivo in hashes_antiguos:
             ruta_archivo=ruta /archivo
             if not ruta_archivo.exists():
@@ -90,12 +94,12 @@ def checar_hashes_carpeta(ruta: Path):
         
         print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
             
-        respuesta=input("¿Desea actualizar los hashes? [S/n]").strip().lower()
+        respuesta=input("¿Desea actualizar los hashes? [S/n]: ").strip().lower()
         while True:
-            if s=="s" or s=="n":
+            if respuesta=="s" or respuesta=="n":
                 break
             else:
-                s=input("Ingrese valores validos (S/n): ").strip().lower()
+                respuesta=input("Ingrese valores validos (S/n): ").strip().lower()
         
         if respuesta=="s":
             with lista_hashes.open("w", encoding="utf-8") as f:
@@ -152,12 +156,12 @@ def checar_hashes_archivos(ruta: Path):
         log.info("", event="changes_detected",details="Cambios detectados, preguntando al usuario si desea actualizar...")
  
         print(f"Se han detectado cambios. Revise {reporte.name} para más información.")
-        respuesta=input("¿Desea actualizar el hash? [S/n]").strip().lower()
+        respuesta=input("¿Desea actualizar el hash? [S/n]: ").strip().lower()
         while True:
-            if s=="s" or s=="n":
+            if respuesta=="s" or respuesta=="n":
                 break
             else:
-                s=input("Ingrese valores validos (S/n): ").strip().lower()
+                respuesta=input("Ingrese valores validos (S/n): ").strip().lower()
         
         if respuesta=="s":
             hashes_antiguos[str(ruta)]=hashes_actuales
@@ -179,6 +183,7 @@ log.debug("", event="input_ruta",details=f"Ruta proporcionada por el usuario: {r
 if ruta.exists():
     if ruta.is_dir():
         if carpeta_sin_archivos(ruta):
+            print("El directorio proporcionado esta vacio o solo contiene carpetas.")
             log.warning("", event="empty_directory",details="La ruta es un directorio, pero no contiene archivos para verificar.")
         else:
             log.info("", event="check_path",details="La ruta es un directorio, procediendo a checar hashes de carpeta...")
@@ -190,9 +195,4 @@ if ruta.exists():
 else:
     log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
     print("La ruta proporcionada no existe.")
-        checar_hashes_archivos(ruta)
-else:
-    log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
-    print("La ruta proporcionada no existe.")
-
-
+    sys.exit(1)

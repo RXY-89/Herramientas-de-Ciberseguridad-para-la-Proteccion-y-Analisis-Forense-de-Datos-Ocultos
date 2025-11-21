@@ -1,0 +1,115 @@
+2025-11-21T10:37:10.447292-0600 - INFO - RUN_20251121_103709 - creating_CSV - Creando el archivo docx.csv
+2025-11-21T10:37:10.448043-0600 - INFO - RUN_20251121_103709 - creating_CSV - Creando el archivo pdf.csv
+2025-11-21T10:37:10.448702-0600 - INFO - RUN_20251121_103709 - creating_CSV - Creando el archivo img.csv
+2025-11-21T10:37:10.449291-0600 - INFO - RUN_20251121_103709 - creating_CSV - Creando el archivo aud.csv
+2025-11-21T10:37:10.449864-0600 - INFO - RUN_20251121_103709 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:37:10.450241-0600 - INFO - RUN_20251121_103709 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:37:10.451177-0600 - INFO - RUN_20251121_103709 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:37:10.536828-0600 - ERROR - RUN_20251121_103709 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:39:37.067527-0600 - INFO - RUN_20251121_103936 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:39:37.068243-0600 - INFO - RUN_20251121_103936 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:39:37.069040-0600 - INFO - RUN_20251121_103936 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:39:37.155947-0600 - ERROR - RUN_20251121_103936 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:39:37.156161-0600 - INFO - RUN_20251121_103936 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:39:37.203303-0600 - INFO - RUN_20251121_103936 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:39:37.310369-0600 - INFO - RUN_20251121_103936 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:39:37.330399-0600 - INFO - RUN_20251121_103936 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:39:37.331118-0600 - INFO - RUN_20251121_103936 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:39:37.331715-0600 - INFO - RUN_20251121_103936 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:39:37.332436-0600 - INFO - RUN_20251121_103936 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:47:27.156523-0600 - INFO - RUN_20251121_104726 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:47:27.157134-0600 - INFO - RUN_20251121_104726 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:47:27.157569-0600 - INFO - RUN_20251121_104726 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:47:27.220643-0600 - ERROR - RUN_20251121_104726 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:47:27.221036-0600 - INFO - RUN_20251121_104726 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:47:27.247366-0600 - INFO - RUN_20251121_104726 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:47:27.277652-0600 - INFO - RUN_20251121_104726 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:47:27.279550-0600 - INFO - RUN_20251121_104726 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:47:27.280550-0600 - INFO - RUN_20251121_104726 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:47:27.281181-0600 - INFO - RUN_20251121_104726 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:47:27.281885-0600 - INFO - RUN_20251121_104726 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:47:57.300436-0600 - INFO - RUN_20251121_104756 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:47:57.300984-0600 - INFO - RUN_20251121_104756 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:47:57.301583-0600 - INFO - RUN_20251121_104756 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:47:57.384369-0600 - ERROR - RUN_20251121_104756 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:47:57.384612-0600 - INFO - RUN_20251121_104756 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:47:57.406824-0600 - INFO - RUN_20251121_104756 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:47:57.446248-0600 - INFO - RUN_20251121_104756 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:47:57.450014-0600 - INFO - RUN_20251121_104756 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:47:57.451305-0600 - INFO - RUN_20251121_104756 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:47:57.452363-0600 - INFO - RUN_20251121_104756 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:47:57.453162-0600 - INFO - RUN_20251121_104756 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:48:46.419235-0600 - INFO - RUN_20251121_104846 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:48:46.419695-0600 - INFO - RUN_20251121_104846 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:48:46.419957-0600 - INFO - RUN_20251121_104846 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:48:46.485128-0600 - ERROR - RUN_20251121_104846 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:48:46.485313-0600 - INFO - RUN_20251121_104846 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:48:46.506963-0600 - INFO - RUN_20251121_104846 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:48:46.532349-0600 - INFO - RUN_20251121_104846 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:48:46.535749-0600 - INFO - RUN_20251121_104846 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:48:46.538242-0600 - INFO - RUN_20251121_104846 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:48:46.539200-0600 - INFO - RUN_20251121_104846 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:48:46.540623-0600 - INFO - RUN_20251121_104846 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:49:42.726716-0600 - INFO - RUN_20251121_104942 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:49:42.727622-0600 - INFO - RUN_20251121_104942 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:49:42.728351-0600 - INFO - RUN_20251121_104942 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:49:42.801615-0600 - ERROR - RUN_20251121_104942 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:49:42.801751-0600 - INFO - RUN_20251121_104942 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:49:42.815803-0600 - INFO - RUN_20251121_104942 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:49:42.838591-0600 - INFO - RUN_20251121_104942 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:49:42.840708-0600 - INFO - RUN_20251121_104942 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:49:42.841908-0600 - INFO - RUN_20251121_104942 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:49:42.842683-0600 - INFO - RUN_20251121_104942 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:49:42.843729-0600 - INFO - RUN_20251121_104942 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:51:06.449370-0600 - INFO - RUN_20251121_105105 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:51:06.449988-0600 - INFO - RUN_20251121_105105 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:51:06.450688-0600 - INFO - RUN_20251121_105105 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:51:06.521314-0600 - ERROR - RUN_20251121_105105 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:51:06.521928-0600 - INFO - RUN_20251121_105105 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:51:06.541975-0600 - INFO - RUN_20251121_105105 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:51:06.574266-0600 - INFO - RUN_20251121_105105 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:51:06.576988-0600 - INFO - RUN_20251121_105105 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:51:06.578898-0600 - INFO - RUN_20251121_105105 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:51:06.581887-0600 - INFO - RUN_20251121_105105 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:51:06.583463-0600 - INFO - RUN_20251121_105105 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:51:51.754710-0600 - INFO - RUN_20251121_105151 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:51:51.755512-0600 - INFO - RUN_20251121_105151 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:51:51.756163-0600 - INFO - RUN_20251121_105151 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:51:51.851799-0600 - ERROR - RUN_20251121_105151 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:51:51.852359-0600 - INFO - RUN_20251121_105151 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:51:51.884990-0600 - INFO - RUN_20251121_105151 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:51:51.918493-0600 - INFO - RUN_20251121_105151 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:51:51.921136-0600 - INFO - RUN_20251121_105151 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:51:51.922158-0600 - INFO - RUN_20251121_105151 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:51:51.923384-0600 - INFO - RUN_20251121_105151 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:51:51.925311-0600 - INFO - RUN_20251121_105151 - saving_CSV - Guardando los metadatos correspondientes en aud.csv
+2025-11-21T10:52:52.001637-0600 - INFO - RUN_20251121_105251 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:52:52.002505-0600 - INFO - RUN_20251121_105251 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:52:52.003129-0600 - INFO - RUN_20251121_105251 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:52:52.075972-0600 - ERROR - RUN_20251121_105251 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:53:09.558580-0600 - INFO - RUN_20251121_105309 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:53:09.559040-0600 - INFO - RUN_20251121_105309 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:53:09.559349-0600 - INFO - RUN_20251121_105309 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:53:09.627676-0600 - ERROR - RUN_20251121_105309 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:53:09.628128-0600 - INFO - RUN_20251121_105309 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:53:09.652022-0600 - INFO - RUN_20251121_105309 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:53:09.681653-0600 - INFO - RUN_20251121_105309 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:53:09.683694-0600 - INFO - RUN_20251121_105309 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:53:09.685305-0600 - INFO - RUN_20251121_105309 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:53:09.686289-0600 - INFO - RUN_20251121_105309 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:53:09.687036-0600 - INFO - RUN_20251121_105309 - nothing_to_save - No hay metadata para guardar en aud.csv
+2025-11-21T10:54:11.562080-0600 - INFO - RUN_20251121_105411 - creating_CSV - Creando el archivo docx.csv
+2025-11-21T10:54:11.562992-0600 - INFO - RUN_20251121_105411 - creating_CSV - Creando el archivo pdf.csv
+2025-11-21T10:54:11.563715-0600 - INFO - RUN_20251121_105411 - creating_CSV - Creando el archivo img.csv
+2025-11-21T10:54:11.564606-0600 - INFO - RUN_20251121_105411 - creating_CSV - Creando el archivo aud.csv
+2025-11-21T10:54:11.565615-0600 - INFO - RUN_20251121_105411 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-21T10:54:11.566138-0600 - INFO - RUN_20251121_105411 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-21T10:54:11.566388-0600 - INFO - RUN_20251121_105411 - checking_file - Checando la metadata de Decont_countdown_2.mp3
+2025-11-21T10:54:11.630789-0600 - ERROR - RUN_20251121_105411 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.mp3
+2025-11-21T10:54:11.631276-0600 - INFO - RUN_20251121_105411 - checking_file - Checando la metadata de Primer entregable PIA.docx
+2025-11-21T10:54:11.656738-0600 - INFO - RUN_20251121_105411 - checking_file - Checando la metadata de example.jpg
+2025-11-21T10:54:11.691519-0600 - INFO - RUN_20251121_105411 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-21T10:54:11.694989-0600 - INFO - RUN_20251121_105411 - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+2025-11-21T10:54:11.696599-0600 - INFO - RUN_20251121_105411 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-21T10:54:11.697670-0600 - INFO - RUN_20251121_105411 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-21T10:54:11.698610-0600 - INFO - RUN_20251121_105411 - nothing_to_save - No hay metadata para guardar en aud.csv

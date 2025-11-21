@@ -1,5 +1,5 @@
 from pathlib import Path
-from PIL import Image
+from datetime import datetime,timezone
 import csv,sys
 try:
     from loguru import logger
@@ -7,7 +7,7 @@ except ImportError:
     print("El modulo 'loguru' no se encuentra instalado. Por favor, instálelo e intente de nuevo.")
     sys.exit(1)
 
-ruta_logging=Path(__file__).parent / "run.log"
+ruta_logging=Path(__file__).parent / "run_metadata.log"
 fecha=datetime.now().strftime("%Y%m%d_%H%M%S")
 logger.remove()
 logger.add(ruta_logging, format="{time} - {level} - {extra[run_id]} - {extra[event]} - {extra[details]}", level="INFO")      
@@ -16,7 +16,7 @@ log = logger.bind(run_id=f"RUN_{fecha}",)
 try:
     from docx import Document
     from PyPDF2 import PdfReader
-    from datetime import datetime,timezone
+    from PIL import Image
     from mutagen import File
     import piexif
 except ImportError as e:
@@ -84,7 +84,7 @@ def metadata_exif(ruta: Path) -> dict:
     exif_bytes = img.info.get("exif")
     if not exif_bytes:
         log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
-        return None
+        return
     exif_dict = piexif.load(exif_bytes)
 
     return {
@@ -113,7 +113,7 @@ def metadata_docx(ruta: Path) -> dict:
     data=doc.core_properties
     if not data:
         log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
-        return None
+        return
     return {
         "Archivo": ruta.name,
         "Fecha analisis": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"),
@@ -139,7 +139,7 @@ def metadata_pdf(ruta: Path) -> dict:
     data=pdf.metadata
     if not data:
         print(f"No se encontro metadata del archivo {ruta.name}")
-        return None
+        return
     return {
         "Archivo": ruta.name,
         "Fecha analisis": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"),
@@ -157,7 +157,7 @@ def metadata_audio(ruta: Path) -> dict:
     audio = File(ruta)
     if audio is None or not audio.tags:
         log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
-        return None
+        return
 
     return {
         "Archivo": ruta.name,
@@ -183,9 +183,8 @@ def checar_vacio(diccionario: dict) -> bool:
     return False
 
 def checar_metadata(lista: list):
-    print(lista)
     metadatos=[[],[],[],[]]
-    vacio=0
+    vacios=0
     for ruta in lista:
         log.info("", event="checking_file", details=f"Checando la metadata de {ruta.name}")
         if not ruta.exists():
@@ -193,19 +192,19 @@ def checar_metadata(lista: list):
             print(f"No existe tal archivo en {ruta}")
         elif ruta.suffix==".docx":
             dato=metadata_docx(ruta)
-            if checar_vacio(dato):
+            if dato is None or checar_vacio(dato):
                 metadatos[0].append(dato)
         elif ruta.suffix==".pdf":
             dato=metadata_pdf(ruta)
-            if checar_vacio(dato):
+            if dato is None or checar_vacio(dato):
                 metadatos[1].append(dato)
         elif ruta.suffix in [".jpg",".jpeg",".tif","tiff",".heif","heic"]:
             dato=metadata_exif(ruta)
-            if checar_vacio(dato):
+            if dato is None or checar_vacio(dato):
                 metadatos[2].append(dato)
         elif ruta.suffix in [".mp3",".mp4",".m4a",".m4b",".flac",".ogg",".opus",".mpc",".ape",".wc",".wav",".aiff",".aif",".aac"]:
             dato=metadata_audio(ruta)
-            if checar_vacio(dato):
+            if dato and checar_vacio(dato):
                 metadatos[3].append(dato)
         else:
             log.warning("", event="incompatible_file", details=f"El script no saca metadatos de archivo {ruta.suffix}")

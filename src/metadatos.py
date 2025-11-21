@@ -1,20 +1,35 @@
-from docx import Document
-from pathlib import Path
-from datetime import datetime,timezone
 from PyPDF2 import PdfReader
 from PIL import Image
+import csv
+try:
+    from loguru import logger
+except ImportError:
+    print("El modulo 'loguru' no se encuentra instalado. Por favor, instálelo e intente de nuevo.")
+    exit(1)
 
-import csv,piexif
+ruta_logging=Path(__file__).parent / "run.log"
+fecha=datetime.now().strftime("%Y%m%d_%H%M%S")
+logger.remove()
+logger.add(ruta_logging, format="{time} - {level} - {extra[run_id]} - {extra[event]} - {extra[details]}", level="INFO")      
+log = logger.bind(run_id=f"RUN_{fecha}",)
 
-from mutagen import File
+try:
+    from docx import Document
+    from pathlib import Path
+    from datetime import datetime,timezone
+    from mutagen import File
+    import piexif
+except ImportError as e:
+    log.critical("", event="Import_Error", details=f"Una de las librerias necesarias no existe {e}")
+    print(f"Uno de las librerias no existe: {e}")
+    exit(1)
+
+
 
 
 ruta_carpeta=Path(__file__).parent / "metadatos"
 ruta_carpeta.mkdir(parents=True, exist_ok=True)
 ruta_archivos=ruta_carpeta / "archivos.txt"
-if not ruta_archivos.exists:
-    print(f"No existe la lista en archivos en {ruta_archivos}, por favor hagala")
-    exit(1)
 rutas_reportes=[ruta_carpeta / "docx.csv",
               ruta_carpeta / "pdf.csv",
               ruta_carpeta / "img.csv",
@@ -28,6 +43,7 @@ encabezados=[["Archivo","Fecha analisis","Autor","Ultimo modificado por","Creado
 
 for tipo in [0,1,2,3]:
     if not rutas_reportes[tipo].exists():
+        log.info("", event="creating_CSV", details=f"Creando el archivo {rutas_reportes[tipo].name}")
         with rutas_reportes[tipo].open("w",newline="",encoding="utf-8") as f:
             writer=csv.DictWriter(f,fieldnames=encabezados[tipo])
             writer.writeheader()
@@ -67,8 +83,8 @@ def metadata_exif(ruta: Path) -> dict:
     img=Image.open(ruta)
     exif_bytes = img.info.get("exif")
     if not exif_bytes:
-        print(f"No se encontró metadata del archivo {ruta.name}.")
-        return
+        log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
+        return None
     exif_dict = piexif.load(exif_bytes)
 
     return {
@@ -96,7 +112,7 @@ def metadata_docx(ruta: Path) -> dict:
     doc=Document(ruta)
     data=doc.core_properties
     if not data:
-        print(f"No se encontro metadata del archivo {ruta.name}")
+        log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
         return None
     return {
         "Archivo": ruta.name,
@@ -140,7 +156,7 @@ def metadata_pdf(ruta: Path) -> dict:
 def metadata_audio(ruta: Path) -> dict:
     audio = File(ruta)
     if audio is None or not audio.tags:
-        print(f"No se encontró metadata en {ruta.name}.")
+        log.error("", event="not_metadata_found", details=f"No se encontro metadata del archivo {ruta.name}")
         return None
 
     return {
@@ -169,10 +185,12 @@ def checar_vacio(diccionario: dict) -> bool:
 def checar_metadata(lista: list):
     print(lista)
     metadatos=[[],[],[],[]]
+    vacio=0
     for ruta in lista:
+        log.info("", event="checking_file", details=f"Checando la metadata de {ruta.name}")
         if not ruta.exists():
+            log.info("", event="file_not_exists", details=f"El archivo {ruta.name} no existe")
             print(f"No existe tal archivo en {ruta}")
-            continue
         elif ruta.suffix==".docx":
             dato=metadata_docx(ruta)
             if checar_vacio(dato):
@@ -190,12 +208,17 @@ def checar_metadata(lista: list):
             if checar_vacio(dato):
                 metadatos[3].append(dato)
         else:
-            print("No metadatos que se buscan, basicamente esto no funciona para esto")
-            continue
-        print(dato)
+            log.info("", event="incompatible_file", details=f"El script no saca metadatos de archivo {ruta.suffix}")
     for tipo in [0,1,2,3]:
         if len(metadatos[tipo])>0:
+            log.info("", event="saving_CSV", details=f"Guardando los metadatos correspondientes en {rutas_reportes[tipo].name}")
             guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+        else:
+            log.info("", event="nothing_to_save", details=f"No hay metadata para guardar en {rutas_reportes[tipo].name}")
+            vacios+=1
+    if vacios==4:
+        log.error("", event="no_metadata_to_save", details="No se encontro metadata en los archivos proporcionados")
+        print("No se encontro metadata en los archivos proporcionados")
 
 def leer_parrafos(ruta: Path) -> list:
     rutas=[]
@@ -204,9 +227,20 @@ def leer_parrafos(ruta: Path) -> list:
             rutas.append(parrafo.strip())
     return rutas
 
-archivos=[]
-for archivo in leer_parrafos(ruta_archivos):
-    archivos.append(Path(archivo))
+if __name__=="__main__":
+    log.info("", event="startup", details="Script iniciado correctamente, procediendo a buscar los archivos...")
+    if not ruta_archivos.exists:
+        log.error("", event="file_not_found", details="No existe el archivo de texto con los archivos")
+        print(f"No existe la lista en archivos en {ruta_archivos}, por favor hágala")
+        exit(1)
+    archivos=[]
+    for archivo in leer_parrafos(ruta_archivos):
+        archivos.append(Path(archivo))
 
-if len(archivos)>0:
-    checar_metadata(archivos)
+    if len(archivos)>0:
+        log.info("", event="checking_metadata", details="Iniciando a ver la metadata de los archivos...")
+        checar_metadata(archivos)
+    else:
+        log.error("", event="empty_file", details="El archivo de texto con los archivos a analizar esta vacío")
+        print("El archivo de texto esta vacio")
+        exit(1)    

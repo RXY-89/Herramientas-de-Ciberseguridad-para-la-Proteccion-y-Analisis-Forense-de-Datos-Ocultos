@@ -9,11 +9,12 @@ import csv,piexif
 from mutagen import File
 
 
-ruta_carpeta=Path(__file__).parent
-rutas_reportes=[ruta_carpeta / "metadatos_docx.csv",
-              ruta_carpeta / "metadatos_pdf.csv",
-              ruta_carpeta / "metadatos_img.csv",
-              ruta_carpeta / "metadatos_aud.csv"]
+ruta_carpeta=Path(__file__).parent / "metadatos"
+ruta_carpeta.mkdir(parents=True, exist_ok=True)
+rutas_reportes=[ruta_carpeta / "docx.csv",
+              ruta_carpeta / "pdf.csv",
+              ruta_carpeta / "img.csv",
+              ruta_carpeta / "aud.csv"]
 encabezados=[["Archivo","Fecha analisis","Autor","Ultimo modificado por","Creado","Modificado","Identificador","Version","Ultimo imprimido","Revision","Comentarios","Categoria","Lenguaje","Estado","Clave","Sujeto","Titulo"],
              ["Archivo","Fecha analisis","Autor","Creado","Modificado","Titulo","Productor","Creador","Sujeto","XMP"],
              ["Archivo","Fecha analisis","Fabricante","Modelo","Software","Fecha captura","ISO","Exposicion","Apertura","GPS latitud","GPS longitud","GPS altitud"],
@@ -187,3 +188,4 @@ def checar_metadata(lista: list):
     for tipo in [0,1,2,3]:
         if len(metadatos[tipo])>0:
             guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+

@@ -4,41 +4,43 @@ param(
     [string]$archivo
 )
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-if ( -not (Test-Path $ruta)){
-    Write-Error "El parametro 'ruta' no es una ruta valida" -Category InvalidArgument
+if (-not (Test-Path $ruta)) {
+    Write-Error "Ruta inválida"
     exit 1
-}
-if ($guardar -eq "True"){
-    if ( -not $archivo){
-        Write-Error "No se proporcionó el parametro 'archivo'" -Category ObjectNotFound
-        exit 1
-    } elseif ( -not (Test-Path (Split-Path $archivo))){
-        Write-Error "El parametro 'archivo' no tiene su carpeta padre" -Category InvalidArgument
-        exit 1
-    }
 }
 
 if (Test-Path $ruta -PathType Leaf) {
-    $hash=Get-FileHash -Path $ruta
-    if ($guardar -eq "True"){
-        if ( -not (Test-Path "$archivo")) {@{} | ConvertTo-Json | Set-Content -Path "$archivo"}
-        $json=Get-Content $archivo | ConvertFrom-Json
-        try{$json.$ruta="$($hash.Hash)"}
-        catch{$json | Add-Member -NotePropertyName "$ruta" -NotePropertyValue "$($hash.Hash)"}
-        $json | ConvertTo-Json | Set-Content -Path $archivo
-    } else{
-        Write-Output $hash.Hash
+    $hashObj = Get-FileHash -Path $ruta -Algorithm SHA256
+    $hashStr = $hashObj.Hash
+
+    if ($guardar -eq "True") {
+
+        if (-not (Test-Path $archivo)) { "{}" | Set-Content $archivo -Encoding UTF8 }
+        
+        $json = Get-Content $archivo -Raw -Encoding UTF8 | ConvertFrom-Json
+
+        if ($json -is [PSCustomObject]) {
+            $json | Add-Member -MemberType NoteProperty -Name $ruta -Value $hashStr -Force
+        } else {
+            $json["$ruta"] = $hashStr
+        }
+        $json | ConvertTo-Json -Depth 2 | Set-Content $archivo -Encoding UTF8
+    } else {
+        Write-Output $hashStr
     }
-} else{
+
+} else {
     $hashes = @{}
     Get-ChildItem -Path $ruta -File | ForEach-Object {
-        $hash=Get-FileHash -Path $_.FullName
-        $hashes["$($_.name)"]="$($hash.Hash)"
+        $h = Get-FileHash -Path $_.FullName -Algorithm SHA256
+        $hashes["$($_.Name)"] = $h.Hash
     }
-    if ($guardar -eq "True"){
-        $hashes | ConvertTo-Json | Set-Content -Path "$archivo"
-    }else{
+
+    if ($guardar -eq "True") {
+        $hashes | ConvertTo-Json | Set-Content $archivo -Encoding UTF8
+    } else {
         $hashes | ConvertTo-Json -Compress
     }
 }

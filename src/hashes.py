@@ -11,7 +11,7 @@ ruta_carpeta=Path(__file__).parent
 ruta_script=ruta_carpeta  / "sacar_hashes.ps1"
 ruta_hashes=ruta_carpeta / "hashes"
 ruta_hashes.mkdir(parents=True, exist_ok=True)
-ruta_logging=ruta_carpeta / "run.log"
+ruta_logging=ruta_carpeta / "run_hashes.log"
 fecha=datetime.now().strftime("%Y%m%d_%H%M%S")
 
 logger.remove()
@@ -177,22 +177,26 @@ def carpeta_sin_archivos(ruta: Path) -> bool:
             return False 
     return True
 
-log.info("", event="startup",details="Script iniciado correctamente, procediendo a solicitar ruta al usuario...")
-ruta=Path(input("Introduzca la ruta al archivo o directorio a verificar: ").strip())
-log.debug("", event="input_ruta",details=f"Ruta proporcionada por el usuario: {ruta}")
-if ruta.exists():
-    if ruta.is_dir():
-        if carpeta_sin_archivos(ruta):
-            print("El directorio proporcionado esta vacio o solo contiene carpetas.")
-            log.warning("", event="empty_directory",details="La ruta es un directorio, pero no contiene archivos para verificar.")
-        else:
-            log.info("", event="check_path",details="La ruta es un directorio, procediendo a checar hashes de carpeta...")
-            checar_hashes_carpeta(ruta)
+def ejecutar():
+    log.info("", event="startup",details="Script iniciado correctamente, procediendo a solicitar ruta al usuario...")
+    ruta=Path(input("Introduzca la ruta al archivo o directorio a verificar: ").strip())
+    log.debug("", event="input_ruta",details=f"Ruta proporcionada por el usuario: {ruta}")
+    if ruta.exists():
+        if ruta.is_dir():
+            if carpeta_sin_archivos(ruta):
+                print("El directorio proporcionado esta vacio o solo contiene carpetas.")
+                log.warning("", event="empty_directory",details="La ruta es un directorio, pero no contiene archivos para verificar.")
+            else:
+                log.info("", event="check_path",details="La ruta es un directorio, procediendo a checar hashes de carpeta...")
+                checar_hashes_carpeta(ruta)
         
+        else:
+            log.info("", event="check_path",details="la ruta es un archivo, procediendo a checar hashes de archivo...")
+            checar_hashes_archivos(ruta)
     else:
-        log.info("", event="check_path",details="la ruta es un archivo, procediendo a checar hashes de archivo...")
-        checar_hashes_archivos(ruta)
-else:
-    log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
-    print("La ruta proporcionada no existe.")
-    sys.exit(1)
+        log.error("", event="invalid_path",details="La ruta proporcionada no existe.")
+        print("La ruta proporcionada no existe.")
+        sys.exit(1)
+
+if __name__=="__main__":
+    ejecutar()

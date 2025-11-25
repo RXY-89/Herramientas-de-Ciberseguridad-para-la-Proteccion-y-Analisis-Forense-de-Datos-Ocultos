@@ -124,6 +124,7 @@ Ejecución Inicial:
 2. El script detecta que es la primera vez, calcula los hashes de todos los archivos dentro y crea hashes/hashes_Datos_Sensibles.json.
 
 Resultado en consola:
+
 `Registro creado correctamente.`
 
 Escenario: Modificación, ejemplo: Un atacante modifica contratos.pdf dentro de esa carpeta.
@@ -139,7 +140,9 @@ Resultado en Consola:
 Detalles guardados en: cambios_src_20251125_015631.txt
 ¿Desea actualizar la base de datos de hashes? [S/n]:`
 
-3. Log generado (run.log): `2025-11-25T01:54:44.057271-0600 - INFO - RUN_20251125_015444 - startup - Script iniciado.
+3. Log generado (run.log):
+
+`2025-11-25T01:54:44.057271-0600 - INFO - RUN_20251125_015444 - startup - Script iniciado.
 2025-11-25T01:55:02.305295-0600 - INFO - RUN_20251125_015444 - first_run - No hay registro previo. Creando base de datos inicial.
 2025-11-25T01:55:02.305858-0600 - INFO - RUN_20251125_015444 - hashes_created - Registro creado exitosamente.
 2025-11-25T01:55:30.207458-0600 - INFO - RUN_20251125_015530 - startup - Script iniciado.

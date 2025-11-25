@@ -15,10 +15,10 @@ Demostrar y ejecutar la capacidad de ocultar información confidencial dentro de
 
 ## Entradas esperadas:
 
-* Archivos Portadores: Rutas a archivos existentes en formatos soportados: Imágenes (.png, .jpg, .jpeg), Audio (.wav) y Documentos (.pdf).
-* Mensaje Secreto: Cadena de texto que el usuario desea ocultar.
-* Ruta de Salida: Nombre o ruta donde se guardará el archivo modificado (estego-objeto).
-* Opciones de Menú: Selección numérica (1, 2 o 3) para definir la operación a realizar.
+* Archivos portadores: Rutas a archivos existentes en formatos soportados: Imágenes (.png, .jpg, .jpeg), Audio (.wav) y Documentos (.pdf).
+* Mensaje secreto: Cadena de texto que el usuario desea ocultar.
+* Ruta de salida: Nombre o ruta donde se guardará el archivo modificado (estego-objeto).
+* Opciones de menú: Selección numérica (1, 2 o 3) para definir la operación a realizar.
 
 ## Salidas esperadas:
 
@@ -90,10 +90,10 @@ Asegurar la integridad de la información almacenada mediante la comparación de
 
 ## Salidas esperadas:
 
-* Base de Datos de Integridad: Archivos JSON almacenados en la carpeta hashes/ que contienen los pares archivo-hash de referencia (ej. hashes_nombre_carpeta.json o lista_hashes.json).
-* Logs de Auditoría: Registro detallado de eventos en run.log gestionado por la librería loguru.
-* Reportes de Incidentes: Archivos de texto (cambios_...txt) generados automáticamente cuando se detectan discrepancias.
-* Alertas en Consola: Avisos visuales inmediatos sobre el estado de la integridad (Íntegro, Modificado, Nuevo, Eliminado).
+* Integridad de los archivos: Archivos JSON almacenados en la carpeta hashes/ que contienen los pares archivo-hash de referencia (ej. hashes_nombre_carpeta.json o lista_hashes.json).
+* Logs de auditoría: Registro detallado de eventos en run.log gestionado por la librería loguru.
+* Reportes de incidentes: Archivos de texto (cambios_...txt) generados automáticamente cuando se detectan discrepancias.
+* Alertas en consola: Avisos visuales inmediatos sobre el estado de la integridad (Íntegro, Modificado, Nuevo, Eliminado).
 
 ## Librerías utilizadas
 
@@ -172,7 +172,7 @@ Delegar la carga computacional del cálculo de hashes al sistema operativo nativ
 
 ## Salidas esperadas:
 
-Modo Consola (-guardar "False"):
+Modo consola (-guardar "False"):
 1. Si es un archivo: Imprime la cadena del hash SHA-256 plano.
 2. Si es una carpeta: Imprime un objeto JSON comprimido con la estructura {"nombre_archivo": "hash"}.
 
@@ -197,10 +197,10 @@ El script utiliza comandos nativos de PowerShell (Core/Windows):
 1. Configuración de Entorno: Fuerza la codificación de la consola a UTF-8 para evitar problemas con caracteres especiales (tildes, ñ) al comunicarse con Python.
 2. Validación: Verifica si la ruta de entrada existe; si no, termina con error.
 3. Ramificación:
-   * Si es un Archivo Único: Calcula el hash.
+   * Si es un archivo único: Calcula el hash.
      Si se solicita guardar: Lee el JSON existente (si hay), inserta/actualiza la entrada específica para ese archivo y guarda.
      Si no se guarda: Imprime solo el hash.
-   * Si es un Directorio: Recorre todos los archivos dentro del mismo directorio.
+   * Si es un directorio: Recorre todos los archivos dentro del mismo directorio.
      Si se solicita guardar: Deposita todo a un archivo JSON nuevo o sobreescribe el existente.
      Si no se guarda: Convierte la tabla a JSON string y la imprime en consola.
 
@@ -215,8 +215,8 @@ Obtener evidencia digital contextual sobre el origen, historial y característic
 ## Entradas y salidas
 
 ## Entradas esperadas:
-* Lista de Archivos (archivos.txt): Un archivo de texto plano ubicado en la carpeta metadatos/ que debe contener las rutas absolutas de los archivos a analizar (una ruta por línea).
-* Archivos Objetivo: Archivos existentes en el disco con extensiones soportadas:
+* Lista de archivos (archivos.txt): Un archivo de texto plano ubicado en la carpeta metadatos/ que debe contener las rutas absolutas de los archivos a analizar (una ruta por línea).
+* Archivos objetivo: Archivos existentes en el disco con extensiones soportadas:
 * Documentos: .docx, .pdf
 * Imágenes: .jpg, .jpeg, .tiff, .heic
 * Audio: .mp3, .wav, .flac, .ogg, entre otros.
@@ -266,4 +266,55 @@ INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en do
 INFO - RUN_2023... - checking_file - Checando la metadata de vacaciones.jpg
 INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en img.csv`
 
+# Complemento - Integración de Inteligencia Artificial para auditoría (AI_INT.py).
 
+## Descripción
+
+Este módulo actúa como una especide de retroalimentación usando una API de OpenAI, permitiendo enviar el contenido de scripts (código fuente) o archivos de registro (logs) a GPT-5 (en el caso de este proyecto, se peude ajustar el modelo que uno busque usar). El script gestiona la autenticación mediante API Key, la lectura segura de archivos locales y la persistencia de los análisis generados. Su diseño permite que un operador humano obtenga retroalimentación inmediata sobre la calidad del código o una interpretación de los logs generados por los scritps.
+
+## Objetivo
+Potenciar las capacidades del analista humano mediante automatización cognitiva. Enfocado principalmente a:
+* Auditoría de código: Detectar vulnerabilidades, sugerir refactorización y explicar la lógica de los scripts del proyecto.
+* Análisis forense de Logs: Interpretar archivos de registro técnicos para identificar anomalías, errores o alertas de seguridad sin necesidad de revisión manual línea por línea.
+
+## Entradas y salidas
+
+## Entradas esperadas:
+
+* Credenciales: API Key de OpenAI (se solicita una única vez y se guarda localmente en api_key.txt).
+* Archivo objetivo: Ruta y nombre del archivo a analizar (puede ser un script .py, .ps1 o un log .log, .txt).
+* Contexto automático: El script inyecta un System Prompt predefinido que instruye a la IA para actuar como un experto en ciberseguridad y desarrollo.
+
+## Salidas esperadas:
+* Análisis en Consola: Despliegue inmediato de la respuesta de la IA, dividida en explicación, sugerencias y análisis de errores.
+* Reporte Persistente: Generación automática de un archivo de texto en la carpeta AI_int/ (ej. analisis_run.log.txt) que contiene la respuesta completa para futura referencia.
+
+## Librerías utilizadas
+
+* openai: Cliente oficial para comunicar con la API de OpenAI (GPT).
+* os: Para la gestión de rutas, verificación de existencia de archivos y creación de directorios de salida.
+
+## Procedimiento general
+
+1. Gestión de credenciales: Al iniciar, verifica si existe api_key.txt. Si no, solicita la clave al usuario y la almacena para sesiones futuras.
+2. Selección del objetivo: Solicita al usuario la ruta y el nombre del archivo que desea "consultar" con la IA.
+3. Lectura y preparación: Lee el contenido del archivo en formato UTF-8.
+4. Consulta a la API: Envía una petición al modelo (configurado en el código como gpt-5, aunque se puede cambiar para usar otro) con dos partes:
+   * Instrucciones del Sistema: Definen el rol de experto y las secciones requeridas (como la explicación o mejoras).
+   * Contenido del Usuario: El texto crudo del archivo leído.
+5. Recepción y almacenamiento: Recibe la respuesta, la muestra en pantalla y guarda una copia en el directorio AI_int.
+
+## Ejemplo de uso
+
+Escenario: Interpretación de un log de errores.
+
+1. Ejecución: El usuario corre AI_INT.py (o lo selecciona desde el menú principal).
+2. Configuración (Si es la primera vez):
+   * Introduce tu API Key de OpenAI: sk-proj-12345...
+3. Selección de Archivo:
+   * Introduce la ruta de la carpeta: . (directorio actual)
+   * Introduce el nombre del archivo: run.log
+4. Procesamiento:
+   * Mensaje: `"Enviando datos a OpenAI para análisis (esto puede tardar unos segundos)..."`
+5. Resultado en Consola (respuesta de la IA).
+6. Estado final: `[Éxito] El análisis se ha guardado en: AI_int\analisis_run.log.txt`

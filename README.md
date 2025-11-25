@@ -69,3 +69,75 @@ Escenario de ejemplo: Revelar el mensaje.
 
 Resultado en consola:
 `[REVELADO] Mensaje encontrado: La clave es 1234`
+
+
+
+# Tarea 2 - Verificación de Integridad de Archivos mediante Hashes
+
+## Descripción general
+Este módulo constituye un sistema de detección de intrusiones basado en host (HIDS) simplificado. Implementa una arquitectura híbrida que utiliza Python como controlador lógico y de gestión de registros, y PowerShell como motor de cálculo criptográfico subyacente. El script permite monitorear tanto archivos individuales como directorios completos, estableciendo una "línea base" de hashes para identificar cualquier alteración no autorizada (modificación, creación o eliminación de archivos).
+
+## Objetivo
+Asegurar la integridad de la información almacenada mediante la comparación de huellas digitales (hashes). El propósito es automatizar la detección de cambios en el sistema de archivos y generar evidencia forense (logs y reportes) cuando el estado actual de un archivo discrepa de su estado original registrado.
+
+## Entradas y salidas
+
+## Entradas esperadas:
+
+* Ruta Objetivo: Ruta absoluta o relativa de un archivo o directorio que se desea auditar.
+* Interacción de Usuario: Confirmación (S/n) para actualizar la base de datos de hashes cuando se detectan cambios.
+* Script Auxiliar: Dependencia del archivo sacar_hashes.ps1 en el mismo directorio para el cálculo matemático.
+
+## Salidas esperadas:
+
+* Base de Datos de Integridad: Archivos JSON almacenados en la carpeta hashes/ que contienen los pares archivo-hash de referencia (ej. hashes_nombre_carpeta.json o lista_hashes.json).
+* Logs de Auditoría: Registro detallado de eventos en run.log gestionado por la librería loguru.
+* Reportes de Incidentes: Archivos de texto (cambios_...txt) generados automáticamente cuando se detectan discrepancias.
+* Alertas en Consola: Avisos visuales inmediatos sobre el estado de la integridad (Íntegro, Modificado, Nuevo, Eliminado).
+
+## Librerías utilizadas
+
+* subprocess: Para la ejecución controlada del script de PowerShell y la captura de su salida estándar.
+* loguru: Para la gestión avanzada y estructurada de logs (timestamps, niveles de severidad, IDs de ejecución).
+* pathlib: Para el manejo orientado a objetos de rutas del sistema de archivos, asegurando compatibilidad entre SO.
+* json: Para la lectura y escritura de las bases de datos de hashes y la interpretación de la salida de PowerShell.
+* datetime: Para el timestamping de los reportes generados.
+
+## Procedimiento general
+
+1. Inicialización: Se configura el sistema de logging y se verifican las rutas de las dependencias (sacar_hashes.ps1).
+2. Selección de objetivo: El usuario ingresa una ruta. El script determina si es un archivo único o un directorio.
+3. Cálculo de hash (PowerShell): Python invoca a PowerShell mediante subprocess. PowerShell calcula el hash SHA-256 (u otro algoritmo definido en el ps1) y devuelve un objeto JSON a Python.
+4. Comparación:
+   * Primera ejecución: Si no existe registro previo, se crea la línea base.
+   * Ejecuciones posteriores: Se comparan los hashes actuales contra los almacenados. Se utiliza para identificar archivos **Nuevos**, **Eliminados** y **Modificados**.
+5. Reporte y acción:
+   * Si hay cambios, se genera un reporte .txt, se escribe una alerta en el log y se pregunta al usuario si desea actualizar la línea base (aceptar los cambios como legítimos).
+   * Si no hay cambios, se confirma la integridad.
+
+## Ejemplo de uso
+
+Escenario: Monitoreo de una carpeta sensible.
+
+Ejecución Inicial:
+1. Usuario ejecuta el script e introduce: C:\Datos_Sensibles
+2. El script detecta que es la primera vez, calcula los hashes de todos los archivos dentro y crea hashes/hashes_Datos_Sensibles.json.
+
+Resultado en consola:
+`Registro creado correctamente.`
+
+Escenario: Modificación, ejemplo: Un atacante modifica contratos.pdf dentro de esa carpeta.
+
+Segunda ejecución de verificación:
+
+1. Usuario ejecuta el script nuevamente sobre C:\Datos_Sensibles.
+2. El script compara los hashes nuevos con el JSON guardado.
+
+Resultado en Consola:
+
+`¡ATENCIÓN! Se han detectado cambios.
+Detalles guardados en: cambios_Datos_Sensibles_20231025.txt
+¿Desea actualizar la base de datos de hashes? [S/n]:`
+
+3. Log generado (run.log): `[CRITICAL] RUN_2023... - file_modified - El archivo contratos.pdf ha sido modificado.`
+

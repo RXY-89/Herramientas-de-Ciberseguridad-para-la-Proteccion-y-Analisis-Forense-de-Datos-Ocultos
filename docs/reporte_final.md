@@ -49,4 +49,4 @@ Las mejoras específicas incluyen:
 
 Cambios de algunos scripts a funciones:
 
-Los scripts steganografia.py, hashes.py y metadatos.py fueron reescritos para dejar de ser scripts de ejecución directa (CLI) y convertirse en librerías de funciones importables, permitiendo que main.py maneje las excepciones y los retornos de manera global.
+Los scripts steganografia.py, hashes.py y metadatos.py fueron reescritos para dejar de ser scripts de ejecución directa y convertirse en librerías de funciones importables, permitiendo que main.py maneje las excepciones y los retornos de manera global.

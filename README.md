@@ -155,3 +155,115 @@ Detalles guardados en: cambios_src_20251125_015631.txt
 2025-11-25T01:57:07.452078-0600 - INFO - RUN_20251125_015652 - changes_detected - Cambios encontrados. Reporte: cambios_src_20251125_015652.txt
 2025-11-25T01:57:10.040842-0600 - INFO - RUN_20251125_015652 - db_updated - Base de datos de hashes actualizada.`
 
+## Tarea 2 (Complemento) - Motor de Hashing Nativo en PowerShell (sacar_hashes.py)
+
+## Descripción general
+Este script está diseñado para ser invocado por el script de Python (hashes.py). Aprovecha la integración nativa de Windows y el cmdlet Get-FileHash para calcular sumas de verificación SHA-256 de manera eficiente, maneja tanto archivos individuales como directorios completos, formatea la salida para garantizar la interoperabilidad entre PowerShell y Python.
+
+## Objetivo
+Delegar la carga computacional del cálculo de hashes al sistema operativo nativo para ganar eficiencia y reducir la complejidad del código en Python. Su función principal es entregar resultados a través de la salida estándar o escribiendo directamente en archivos de registro, asegurando una codificación de caracteres (UTF-8) compatible.
+## Entradas y salidas
+
+## Entradas esperadas (Parámetros):
+
+* ruta (Obligatorio): La ruta del sistema de archivos (archivo o carpeta) a procesar.
+* guardar (Opcional): Interruptor lógico ("True" o "False") que decide si el resultado se imprime en consola o se escribe en disco.
+* archivo (Opcional): Ruta del archivo .json de destino. Requerido solo si -guardar es "True".
+
+## Salidas esperadas:
+
+Modo Consola (-guardar "False"):
+1. Si es un archivo: Imprime la cadena del hash SHA-256 plano.
+2. Si es una carpeta: Imprime un objeto JSON comprimido con la estructura {"nombre_archivo": "hash"}.
+
+Modo de guardado (-guardar "True"):
+
+1. No imprime nada en consola.
+2. Crea o actualiza el archivo JSON especificado en el parámetro -archivo.
+
+Errores: Salida de error estándar si la ruta no existe.
+
+## Cmdlets y Utilidades utilizadas
+El script utiliza comandos nativos de PowerShell (Core/Windows):
+
+* Get-FileHash: El núcleo criptográfico, configurado para usar el algoritmo SHA256.
+* ConvertTo-Json / ConvertFrom-Json: Para serializar y deserializar datos, permitiendo el intercambio de información estructurada.
+* Test-Path: Para validar la existencia de rutas.
+* Get-ChildItem: Para iterar sobre los archivos de un directorio.
+* Set-Content / Get-Content: Para la lectura y escritura de archivos con codificación UTF-8 forzada.
+
+## Procedimiento general
+
+1. Configuración de Entorno: Fuerza la codificación de la consola a UTF-8 para evitar problemas con caracteres especiales (tildes, ñ) al comunicarse con Python.
+2. Validación: Verifica si la ruta de entrada existe; si no, termina con error.
+3. Ramificación:
+   * Si es un Archivo Único: Calcula el hash.
+     Si se solicita guardar: Lee el JSON existente (si hay), inserta/actualiza la entrada específica para ese archivo y guarda.
+     Si no se guarda: Imprime solo el hash.
+   * Si es un Directorio: Recorre todos los archivos dentro del mismo directorio.
+     Si se solicita guardar: Deposita todo a un archivo JSON nuevo o sobreescribe el existente.
+     Si no se guarda: Convierte la tabla a JSON string y la imprime en consola.
+
+# Tarea 3 - Análisis Forense de Metadatos
+
+## Descripción general
+Este módulo se centra en la extracción y análisis de metadatos en diversos formatos de archivos digitales para revelar información que no es visible a simple vista, como geolocalización, autores, software de edición, fechas reales de creación y modificaciones previas, entre otros. El sistema clasifica automáticamente los resultados y los exporta a reportes CSV separados por tipo de archivo, manteniendo un registro detallado de la actividad mediante logs.
+
+## Objetivo
+Obtener evidencia digital contextual sobre el origen, historial y características técnicas de los archivos analizados. El propósito es identificar la autoría, validar la autenticidad (fechas de modificación vs. creación) y detectar posibles fugas de información sensible (como coordenadas GPS en fotografías o nombres de usuarios en documentos de ofimática).
+
+## Entradas y salidas
+
+## Entradas esperadas:
+* Lista de Archivos (archivos.txt): Un archivo de texto plano ubicado en la carpeta metadatos/ que debe contener las rutas absolutas de los archivos a analizar (una ruta por línea).
+* Archivos Objetivo: Archivos existentes en el disco con extensiones soportadas:
+* Documentos: .docx, .pdf
+* Imágenes: .jpg, .jpeg, .tiff, .heic
+* Audio: .mp3, .wav, .flac, .ogg, entre otros.
+
+## Salidas esperadas:
+
+* Reportes CSV: Archivos generados en la carpeta metadatos/ conteniendo la información extraída:
+  docx.csv: Metadatos de Office (Autor, Revisiones, Tiempos de edición).
+  pdf.csv: Metadatos de Adobe/PDF (Creador, Productor, XMP).
+  img.csv: Datos EXIF (Cámara, ISO, Apertura, GPS).
+  aud.csv: Etiquetas ID3/Tags (Artista, Álbum, Año).
+
+* Logs de Auditoría: Registro de eventos en run_metadata.log (ej. "Metadata found", "File not exists").
+
+## Librerías utilizadas
+El script integra múltiples librerías especializadas para el parsing de cada formato:
+
+* python-docx: Para acceder a las Core Properties de documentos Word.
+* PyPDF2: Para la extracción de diccionarios de info y XMP en PDFs.
+* PIL (Pillow) & piexif: Para la manipulación de imágenes y decodificación de datos EXIF (incluyendo cálculos matemáticos para convertir coordenadas GPS a formato decimal).
+* mutagen: Para el manejo versátil de etiquetas de metadatos en archivos de audio.
+* loguru: Para la gestión estructurada de logs.
+* csv: Para la generación de reportes.
+
+## Procedimiento general
+
+1. Configuración inicial: Se crean los directorios de salida y se inicializan los archivos CSV con sus respectivos encabezados si no existen.
+2. Lectura de fuentes: El script lee el archivo metadatos/archivos.txt y carga la lista de rutas a procesar.
+3. Iteración y clasificación: Recorre cada archivo, valida su existencia e identifica su extensión para seleccionar el extractor adecuado (metadata_docx, metadata_pdf, metadata_exif o metadata_audio).
+4. Extracción y conversión:
+   * Se extraen los datos crudos.
+   * Se realizan conversiones de formato (bytes a string, fechas a formato legible, coordenadas GPS sexagesimales a decimales).
+5. Filtrado: Se utiliza la función checar_vacio para asegurar que no se guarden registros de archivos que no contienen metadatos útiles.
+6. Reporte: Los datos válidos se escriben en el CSV correspondiente y el evento se registra en el log.
+
+## Ejemplo de uso
+
+1. Se ejecuta metadatos.py.
+2. Resultado en img.csv (Ejemplo de fila generada):
+
+`| Archivo | Fecha analisis | Fabricante | Modelo | Software | Fecha captura | ISO | Exposicion | Apertura | GPS latitud | GPS longitud | GPS altitud|
+example.jpg	2025-11-22 03:51:33 UTC	Apple	iPhone 4	Microsoft Windows Photo Viewer 6.1.7600.16385	7/16/2012 12:13	80	(1, 2011)	(14, 5)	27.757	-15.56916667	(22411, 559)`
+
+Resultado en log:
+`INFO - RUN_2023... - checking_file - Checando la metadata de contrato_final.docx
+INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en docx.csv
+INFO - RUN_2023... - checking_file - Checando la metadata de vacaciones.jpg
+INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en img.csv`
+
+

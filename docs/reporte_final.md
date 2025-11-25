@@ -36,8 +36,17 @@ AI_INT.py (Módulo de Inteligencia Artificial, encargado de la retroalimentació
 
 # Actualización del proyecto.
 
+La actualización más reciente introduce capacidades de Inteligencia Artificial mediante el nuevo módulo AI_INT.py, transformando la herramienta en una solución "inteligente".
+
 ## Potenciado por Inteligencia Artificial.
 La gran novedad de esta versión es la implementación de un módulo de Inteligencia Artificial (AI_INT.py) dentro de main.py que transforma la herramienta en una forma de retroalimentación continua:
 
+Las mejoras específicas incluyen:
+
 * Análisis de Logs: Interpreta los resultados y registros generados por los scripts de auditoría, proporcionando resúmenes en lenguaje natural sobre la integridad y seguridad de los archivos.
 * Optimización de Código: Revisa el código fuente del propio proyecto para sugerir mejoras, refactorizaciones y parches de seguridad.
+
+
+Cambios de algunos scripts a funciones:
+
+Los scripts steganografia.py, hashes.py y metadatos.py fueron reescritos para dejar de ser scripts de ejecución directa (CLI) y convertirse en librerías de funciones importables, permitiendo que main.py maneje las excepciones y los retornos de manera global.

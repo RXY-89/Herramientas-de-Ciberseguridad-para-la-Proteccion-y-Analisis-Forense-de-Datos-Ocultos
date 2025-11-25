@@ -155,7 +155,7 @@ Detalles guardados en: cambios_src_20251125_015631.txt
 2025-11-25T01:57:07.452078-0600 - INFO - RUN_20251125_015652 - changes_detected - Cambios encontrados. Reporte: cambios_src_20251125_015652.txt
 2025-11-25T01:57:10.040842-0600 - INFO - RUN_20251125_015652 - db_updated - Base de datos de hashes actualizada.`
 
-## Tarea 2 (Complemento) - Motor de Hashing Nativo en PowerShell (sacar_hashes.py)
+## Tarea 2 (Complemento) - Motor de Hashing Nativo en PowerShell (sacar_hashes.ps1)
 
 ## Descripción general
 Este script está diseñado para ser invocado por el script de Python (hashes.py). Aprovecha la integración nativa de Windows y el cmdlet Get-FileHash para calcular sumas de verificación SHA-256 de manera eficiente, maneja tanto archivos individuales como directorios completos, formatea la salida para garantizar la interoperabilidad entre PowerShell y Python.

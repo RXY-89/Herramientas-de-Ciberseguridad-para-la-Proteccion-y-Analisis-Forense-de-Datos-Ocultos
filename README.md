@@ -164,7 +164,7 @@ Este script está diseñado para ser invocado por el script de Python (hashes.py
 Delegar la carga computacional del cálculo de hashes al sistema operativo nativo para ganar eficiencia y reducir la complejidad del código en Python. Su función principal es entregar resultados a través de la salida estándar o escribiendo directamente en archivos de registro, asegurando una codificación de caracteres (UTF-8) compatible.
 ## Entradas y salidas
 
-## Entradas esperadas (Parámetros):
+## Entradas esperadas:
 
 * ruta (Obligatorio): La ruta del sistema de archivos (archivo o carpeta) a procesar.
 * guardar (Opcional): Interruptor lógico ("True" o "False") que decide si el resultado se imprime en consola o se escribe en disco.

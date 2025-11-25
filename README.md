@@ -120,7 +120,7 @@ Asegurar la integridad de la información almacenada mediante la comparación de
 Escenario: Monitoreo de una carpeta sensible.
 
 Ejecución Inicial:
-1. Usuario ejecuta el script e introduce: C:\Datos_Sensibles
+1. Usuario ejecuta el script e introduce: C:\src
 2. El script detecta que es la primera vez, calcula los hashes de todos los archivos dentro y crea hashes/hashes_Datos_Sensibles.json.
 
 Resultado en consola:
@@ -136,8 +136,19 @@ Segunda ejecución de verificación:
 Resultado en Consola:
 
 `¡ATENCIÓN! Se han detectado cambios.
-Detalles guardados en: cambios_Datos_Sensibles_20231025.txt
+Detalles guardados en: cambios_src_20251125_015631.txt
 ¿Desea actualizar la base de datos de hashes? [S/n]:`
 
-3. Log generado (run.log): `[CRITICAL] RUN_2023... - file_modified - El archivo contratos.pdf ha sido modificado.`
+3. Log generado (run.log): `2025-11-25T01:54:44.057271-0600 - INFO - RUN_20251125_015444 - startup - Script iniciado.
+2025-11-25T01:55:02.305295-0600 - INFO - RUN_20251125_015444 - first_run - No hay registro previo. Creando base de datos inicial.
+2025-11-25T01:55:02.305858-0600 - INFO - RUN_20251125_015444 - hashes_created - Registro creado exitosamente.
+2025-11-25T01:55:30.207458-0600 - INFO - RUN_20251125_015530 - startup - Script iniciado.
+2025-11-25T01:55:36.010421-0600 - INFO - RUN_20251125_015530 - changes_detected - Cambios encontrados. Reporte: cambios_src_20251125_015530.txt
+2025-11-25T01:55:40.198186-0600 - INFO - RUN_20251125_015530 - db_updated - Base de datos de hashes actualizada.
+2025-11-25T01:56:31.903529-0600 - INFO - RUN_20251125_015631 - startup - Script iniciado.
+2025-11-25T01:56:45.142670-0600 - INFO - RUN_20251125_015631 - changes_detected - Cambios encontrados. Reporte: cambios_src_20251125_015631.txt
+2025-11-25T01:56:48.370174-0600 - INFO - RUN_20251125_015631 - db_updated - Base de datos de hashes actualizada.
+2025-11-25T01:56:52.853007-0600 - INFO - RUN_20251125_015652 - startup - Script iniciado.
+2025-11-25T01:57:07.452078-0600 - INFO - RUN_20251125_015652 - changes_detected - Cambios encontrados. Reporte: cambios_src_20251125_015652.txt
+2025-11-25T01:57:10.040842-0600 - INFO - RUN_20251125_015652 - db_updated - Base de datos de hashes actualizada.`
 

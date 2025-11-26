@@ -1,8 +1,16 @@
 import sys
 import subprocess
 import os
+import logging
 from pathlib import Path
 from datetime import datetime
+
+logging.basicConfig(
+    filename='registro_sistema.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 BASE_DIR = Path(__file__).parent.resolve()
 
@@ -13,25 +21,32 @@ def limpiar_pantalla():
         os.system('clear')
 
 def ejecutar_modulo_interactivo(nombre_script):
-
     ruta_script = BASE_DIR / nombre_script
     if not ruta_script.exists():
-        print(f"Error: No se encuentra {nombre_script} en {BASE_DIR}")
+        msg = f"Error: No se encuentra {nombre_script} en {BASE_DIR}"
+        print(msg)
+        logging.error(msg)
         return
 
     print(f"--- Iniciando {nombre_script} ---\n")
+    logging.info(f"Iniciando modulo: {nombre_script}")
+    
     try:
         subprocess.run([sys.executable, '-u', str(ruta_script)], cwd=str(BASE_DIR))
+        logging.info(f"Finalizo la ejecucion de {nombre_script}")
     except Exception as e:
-        print(f"Error al lanzar el script: {e}")
+        msg = f"Error al lanzar el script {nombre_script}: {e}"
+        print(msg)
+        logging.error(msg)
 
-def ejecutar_modulo_automatico(nombre_script, input_texto):
+def ejecutar_modulo_completo(nombre_script, input_texto):
     ruta_script = BASE_DIR / nombre_script
     if not ruta_script.exists():
+        logging.error(f"Intento de ejecucion fallido: {nombre_script} no existe.")
         return f"Error: No existe {nombre_script}", ""
 
+    logging.info(f"Ejecutando modo completo: {nombre_script}")
     try:
-        #Esto sirev para la configuración de entorno para UTF-8
         env_vars = os.environ.copy()
         env_vars["PYTHONIOENCODING"] = "utf-8"
 
@@ -48,10 +63,18 @@ def ejecutar_modulo_automatico(nombre_script, input_texto):
         )
         
         stdout, stderr = process.communicate(input=input_texto)
+        
+        if stderr:
+            logging.warning(f"Modulo {nombre_script} genero stderr: {stderr.strip()}")
+        else:
+            logging.info(f"Modulo {nombre_script} ejecutado correctamente.")
+            
         return stdout, stderr
 
     except Exception as e:
-        return "", f"Error crítico en subprocess: {e}"
+        msg = f"Error critico en subprocess {nombre_script}: {e}"
+        logging.critical(msg)
+        return "", msg
 
 def buscar_ultimo_reporte_cambios():
     try:
@@ -60,10 +83,12 @@ def buscar_ultimo_reporte_cambios():
         if not archivos_reporte:
             return None
         ultimo_reporte = max(archivos_reporte, key=os.path.getctime)
+        #Esto fue si fue creado hace menos de 60 segundos
         if (datetime.now().timestamp() - os.path.getctime(ultimo_reporte)) < 60:
             return ultimo_reporte
         return None
     except Exception as e:
+        logging.error(f"Error buscando reporte de cambios: {e}")
         print(f"Error buscando reporte: {e}")
         return None
 
@@ -79,7 +104,9 @@ def leer_archivos_modificados_del_reporte(ruta_txt):
                     if len(partes) > 1:
                         nombre = partes[1].split(" ha sido")[0].strip()
                         modificados.append(nombre)
+        logging.info(f"Archivos leidos del reporte: {modificados}")
     except Exception as e:
+        logging.error(f"Error leyendo archivo de reporte {ruta_txt}: {e}")
         print(f"Error leyendo reporte: {e}")
         
     return modificados
@@ -92,7 +119,9 @@ def generar_lista_archivos(ruta_analisis):
     archivos = []
     ruta = Path(ruta_analisis)
     
-    if not ruta.exists(): return []
+    if not ruta.exists(): 
+        logging.warning(f"Ruta no existe para generar lista: {ruta_analisis}")
+        return []
 
     if ruta.is_file():
         archivos.append(str(ruta.resolve()))
@@ -101,17 +130,21 @@ def generar_lista_archivos(ruta_analisis):
             if item.is_file():
                 archivos.append(str(item.resolve()))
     
-    with open(archivo_txt, "w", encoding="utf-8") as f:
-        f.write("\n".join(archivos))
+    try:
+        with open(archivo_txt, "w", encoding="utf-8") as f:
+            f.write("\n".join(archivos))
+        logging.info(f"Lista de archivos generada en {archivo_txt} con {len(archivos)} elementos.")
+    except Exception as e:
+        logging.error(f"Error escribiendo lista de archivos: {e}")
+        
     return archivos
 
 def inyectar_nota(archivo):
     try:
         import piexif, fitz
-        from mutagen.easyid3 import EasyID3
-        from mutagen.mp3 import MP3
         from PIL import Image
     except ImportError:
+        logging.warning("Librerias para inyección (piexif, fitz, Pillow) no encontradas.")
         return 
 
     ruta = Path(archivo)
@@ -129,8 +162,11 @@ def inyectar_nota(archivo):
                     curr = exif_dict["0th"].get(270, b"").decode(errors="ignore")
                     exif_dict["0th"][270] = (curr + marca).encode("utf-8")
                     img.save(ruta, exif=piexif.dump(exif_dict))
-                    print(f"Etiqueta inyectada en imagen: {ruta.name}")
-                except: pass
+                    msg = f"Etiqueta inyectada en imagen: {ruta.name}"
+                    print(msg)
+                    logging.info(msg)
+                except Exception as e: 
+                    logging.error(f"Fallo inyeccion EXIF en {ruta.name}: {e}")
         
         elif suffix == '.pdf':
             doc = fitz.open(ruta)
@@ -138,29 +174,33 @@ def inyectar_nota(archivo):
             meta["keywords"] = (meta.get("keywords","") + marca).strip()
             doc.set_metadata(meta)
             doc.saveIncr()
-            print(f"Etiqueta inyectada en PDF: {ruta.name}")
+            msg = f"Etiqueta inyectada en PDF: {ruta.name}"
+            print(msg)
+            logging.info(msg)
 
-    except Exception:
-        pass 
+    except Exception as e:
+        logging.error(f"Error general en inyeccion para {archivo}: {e}")
 
-def modo_automatico():
-    print("\n---MODO AUTOMÁTICO ---")
+def modo_completo():
+    print("\n---MODO COMPLETO ---")
+    logging.info("Iniciando Modo Completo")
     ruta_raw = input("Ingrese la ruta a analizar: ").strip().strip('"')
     
     if not os.path.exists(ruta_raw):
         print("La ruta proporcionada no existe.")
+        logging.warning(f"Modo completo abortado: ruta inexistente {ruta_raw}")
         input("Enter para volver...")
         return
 
-    # 1. ESTO ES PARA LO DE HASHEs
+    # 1. HASHEs
     print("\nPaso 1: Verificación de Hashes...")
-    
     input_data = f"{ruta_raw}\nn\n" 
+    out, err = ejecutar_modulo_completo("hashes.py", input_data)
     
-    out, err = ejecutar_modulo_automatico("hashes.py", input_data)
     if err:
         print("Advertencias/Errores de hashes.py:")
         print(err)
+        
     archivos_modificados = []
     if "detectado cambios" in out:
         print("Hashes.py reportó cambios. Buscando reporte.")
@@ -170,6 +210,7 @@ def modo_automatico():
             archivos_modificados = leer_archivos_modificados_del_reporte(ruta_reporte)
         else:
             print("No se encontró el archivo de reporte .txt generado.")
+            logging.warning("Hashes reporto cambios pero no se encontro el txt.")
     else:
         print(" No se reportaron cambios en consola.")
 
@@ -178,12 +219,12 @@ def modo_automatico():
 
     # 2. ESTEGANOGRAFÍA
     print("\n Paso 2: Esteganografía...")
-    ejecutar_modulo_interactivo("steganografia.py")
+    ejecutar_modulo_interactivo("esteganografia.py")
 
     # 3. METADATOS
     print("\nPaso 3: Metadatos...")
     lista_archivos = generar_lista_archivos(ruta_raw)
-    out_meta, err_meta = ejecutar_modulo_automatico("metadatos.py", "")
+    out_meta, err_meta = ejecutar_modulo_completo("metadatos.py", "")
     print("--- Salida de metadatos.py ---")
     print(out_meta)
     
@@ -192,18 +233,23 @@ def modo_automatico():
         print("\n--- ACCIONES FINALES ---")
         dec = input("¿Desea inyectar una marca de modificación en la metadata? (s/n): ").lower()
         if dec == 's':
+            logging.info("Usuario decidio inyectar marcas en metadatos.")
             for nombre in archivos_modificados:
-                # Buscamos la ruta completa
                 full_path = next((f for f in lista_archivos if Path(f).name == nombre), None)
                 if full_path:
                     inyectar_nota(full_path)
                 else:
                     print(f"No encuentro ruta para {nombre}")
+                    logging.warning(f"No se encontró ruta completa para inyección: {nombre}")
+        else:
+            logging.info("Usuario omitio la inyeccion de metadatos.")
     
-    print("\nProceso automático finalizado.")
+    print("\nProceso completo finalizado.")
+    logging.info("Modo completo finalizado.")
     input("Presione Enter para volver al menú.")
 
 def main():
+    logging.info("Sistema Integrador iniciado.")
     while True:
         limpiar_pantalla()
         print("╔══════════════════════════════════════╗")
@@ -212,26 +258,39 @@ def main():
         print("║ 1. Hashes (Individual)               ║")
         print("║ 2. Esteganografía (Individual)       ║")
         print("║ 3. Metadatos (Individual)            ║")
-        print("║ 4. ANÁLISIS AUTOMÁTICO COMPLETO      ║")
-        print("║ 5. Salir                             ║")
+        print("║ 4. ANÁLISIS COMPLETO                 ║")
+        print("║ 5. Retroalimentación por AI.         ║")
+        print("║ 6. Salir                             ║")
         print("╚══════════════════════════════════════╝")
-        #Me gustó como se veían algunos proyectos con este tipo de cajitas para que se viera bonito el menú así que lo puse, heheh.
+        
         op = input("Opción: ")
 
         if op == '1':
+            logging.info("Seleccion menu: 1 (Hashes)")
             ejecutar_modulo_interactivo("hashes.py")
             input("\nPresione Enter para continuar...")
         elif op == '2':
-            ejecutar_modulo_interactivo("steganografia.py")
+            logging.info("Seleccion menu: 2 (Esteganografia)")
+            ejecutar_modulo_interactivo("esteganografia.py")
             input("\nPresione Enter para continuar...")
         elif op == '3':
+            logging.info("Seleccion menu: 3 (Metadatos)")
             print("Nota: metadatos.py requiere archivos.txt (Opción 4 lo hace solo)")
             ejecutar_modulo_interactivo("metadatos.py")
             input("\nPresione Enter para continuar...")
         elif op == '4':
-            modo_automatico()
+            logging.info("Seleccion menu: 4 (Completo)")
+            modo_completo()
         elif op == '5':
+            logging.info("Seleccion menu: 5 (Retroalimentacion por AI)")
+            ejecutar_modulo_interactivo("AI_INT.py")
+            input("\nPresione Enter para continuar...")
+        elif op == '6':
+            logging.info("Seleccion menu: 6 (Salir)")
+            print("Saliendo del sistema...")
             sys.exit()
+        else:
+            logging.warning(f"Seleccion invalida en menu: {op}")
 
 if __name__ == "__main__":
     main()

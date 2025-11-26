@@ -1,0 +1,10 @@
+{"mensaje": "Mensaje oculto es este"}
+{"mensaje": "Este es un mensaje oculto"}
+{"ts": "2025-11-25T23:12:00", "operacion": "error", "tipo": "pdf", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\Cocina_medieval_y_Renacentista_2.pdf", "error": "bad dict key(s): {'mensaje_oculto'}"}
+{"ts": "2025-11-25T23:12:32", "operacion": "ocultar", "tipo": "audio", "archivo": "Archivo", "nota": "mensaje ocultado (no registrado texto)"}
+{"ts": "2025-11-25T23:13:02", "operacion": "ocultar", "tipo": "audio", "archivo": "Archivo.wav", "nota": "mensaje ocultado (no registrado texto)"}
+{"ts": "2025-11-25T23:13:56", "operacion": "revelar", "tipo": "audio", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\Archivo.wav", "mensaje": "Cosota"}
+{"ts": "2025-11-25T23:14:23", "operacion": "error", "tipo": "pdf", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\Cocina_medieval_y_Renacentista_2.pdf", "error": "bad dict key(s): {'mensaje_oculto'}"}
+{"ts": "2025-11-25T23:18:31", "operacion": "ocultar", "tipo": "audio", "archivo": "Archivo.wav", "nota": "mensaje ocultado (no registrado texto)"}
+{"ts": "2025-11-25T23:19:44", "operacion": "revelar", "tipo": "audio", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\ORIGINALES\\Decont_countdown_2.wav", "mensaje": "Este es un mensaje oculto"}
+{"ts": "2025-11-25T23:34:57", "operacion": "error", "tipo": "pdf", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\Cocina_medieval_y_Renacentista_2.pdf", "error": "bad dict key(s): {'mensaje_oculto'}"}

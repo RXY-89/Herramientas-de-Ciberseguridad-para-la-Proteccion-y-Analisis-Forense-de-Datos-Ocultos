@@ -37,69 +37,79 @@ Implementación de AI_INT.py a main.py, además de completar el módulo para que
 
 # Tarea 1 - Ocultamiento y Detección de Información mediante Esteganografía
 ## Descripción general
-Este módulo implementa técnicas de esteganografía digital para establecer canales de comunicación encubiertos. El script permite ocultar mensajes de texto plano dentro de archivos multimedia (imágenes y audio) y documentos (PDF) sin alterar significativamente su percepción visual o auditiva. Adicionalmente, cuenta con un sistema de registro (logging) que almacena un historial de los mensajes procesados en formato JSONL para fines de auditoría o recuperación.
+Este módulo implementa técnicas de esteganografía digital para establecer canales de comunicación encubiertos. El script permite ocultar mensajes de texto plano dentro de archivos multimedia (imágenes y audio) y documentos (PDF) sin alterar significativamente su percepción visual o auditiva. Adicionalmente, cuenta con un sistema de registro (logging) que almacena un historial de los mensajes procesados en formato JSONL para fines de auditoría o recuperación. A diferencia de versiones básicas, esta herramienta implementa un sistema robusto de auditoría: todas las salidas y registros se centralizan automáticamente en una carpeta dedicada (estega_salidas). El sistema soporta operaciones tanto en archivos individuales como en lotes (directorios completos), permitiendo escanear carpetas enteras en busca de mensajes ocultos.
 
 ## Objetivo
-Demostrar y ejecutar la capacidad de ocultar información confidencial dentro de portadores digitales comunes, utilizando la técnica del Bit Menos Significativo (LSB) para medios audiovisuales y la manipulación de metadatos para documentos, permitiendo tanto la inyección como la extracción posterior del mensaje secreto.
+Proveer un mecanismo seguro para el transporte de mensajes encubiertos y, simultáneamente, ofrecer capacidades forenses para la detección de dichos mensajes. El objetivo secundario es mantener una trazabilidad completa de las acciones realizadas mediante logs técnicos detallados y un historial de hallazgos persistente.
 
 ## Entradas y salidas
 
 ## Entradas esperadas:
 
-* Archivos portadores: Rutas a archivos existentes en formatos soportados: Imágenes (.png, .jpg, .jpeg), Audio (.wav) y Documentos (.pdf).
-* Mensaje secreto: Cadena de texto que el usuario desea ocultar.
-* Ruta de salida: Nombre o ruta donde se guardará el archivo modificado (estego-objeto).
-* Opciones de menú: Selección numérica (1, 2 o 3) para definir la operación a realizar.
+1. Archivos Portadores:
+   * Imágenes: .png (Manipulación de píxeles RGB), .jpg/.webp (Inyección en metadatos EXIF).
+   * Audio: .wav (Esteganografía LSB - Least Significant Bit).
+   * Documentos: .pdf (Manipulación de metadatos del documento).
+2. Modo de Entrada: Ruta a un archivo específico o ruta a una carpeta (para búsqueda masiva en modo revelar).
+3. Mensaje: Texto a ocultar (Nota: En formato PNG, el límite actual es de 255 caracteres).
 
 ## Salidas esperadas:
 
-* Archivo Esteganografiado: Un nuevo archivo (imagen, audio o PDF) que contiene el mensaje oculto pero mantiene la funcionalidad del original.
-* Consola: Confirmación de éxito, rutas de guardado o el texto del mensaje revelado.
-* Historial (mensajes.jsonl): Un archivo de registro local que añade una nueva línea con el mensaje procesado en formato JSON ({"mensaje": "contenido"}).
+1. Archivos Esteganografiados: Se guardan automáticamente en la carpeta estega_salidas con el sufijo _2 (ej. imagen_2.png), evitando sobrescribir los originales.
+2. Logs de Aplicación (app_log.jsonl): Registro técnico de errores y eventos de ejecución en formato JSON.
+3. Registro de Hallazgos (mensajes.jsonl): Base de datos acumulativa de todos los mensajes interceptados o revelados exitosamente.
 
 ## Librerías utilizadas
-El script hace uso de las siguientes bibliotecas para la manipulación de archivos:
+El script ha actualizado sus dependencias para optimizar la compatibilidad y el manejo de metadatos:
 
-* PIL (Pillow): Para la manipulación de imágenes (apertura, acceso a píxeles RGB y guardado).
-* fitz (PyMuPDF): Para acceder y modificar los metadatos de archivos PDF.
-* wave: Librería estándar de Python para la lectura y escritura de archivos de audio .wav.
-* json: Para la serialización y almacenamiento del historial de mensajes.
-* os: Para validaciones de rutas y gestión del sistema de archivos.
+* PIL (Pillow): Manipulación de imágenes (lectura/escritura de píxeles).
+* piexif: Gestión específica de metadatos EXIF para formatos JPG y WEBP.
+* pypdf: (Reemplaza a PyMuPDF) Para lectura y escritura de estructuras PDF estándar.
+* wave y struct: Manipulación nativa de archivos de audio WAV a nivel de byte.
+* logging y json: Para la generación de logs estructurados y serialización de datos.
 
 ## Procedimiento general
-1. Selección de Operación: El usuario elige entre Ocultar (1), Revelar (2) o Ver Historial (3).
-2. Validación: Se verifica que el archivo de entrada exista y que el formato sea compatible.
 
-## Proceso de Ocultamiento:
+1. Inicialización de Entorno: El script verifica la existencia de librerías críticas y crea el directorio estega_salidas si no existe. Configura el logger para escribir en formato JSONL.
+2. Selección de Flujo: El usuario decide entre Ocultar (1) o Revelar (2).
+3. Ocultamiento:
+   * Se valida el archivo de entrada.
+   * Se aplica el algoritmo correspondiente según la extensión (LSB para Audio, Píxeles para PNG, Metadatos para PDF/JPG).
+   * El archivo resultante se guarda automáticamente en la carpeta de salidas.
+4. Revelado:
+   * El usuario puede introducir la ruta de un solo archivo o de una carpeta entera.
+   * Si es carpeta, el script itera sobre todos los archivos compatibles.
+   * Intenta extraer información oculta usando la lógica inversa del ocultamiento.
+   * Si encuentra un mensaje, lo muestra en consola y lo registra en mensajes.jsonl.
 
-* Imágenes/Audio: El mensaje se convierte a binario. Se utiliza la técnica LSB (Least Significant Bit), modificando el último bit de cada byte (de color en imágenes o de muestra en audio) para insertar la información sin generar ruido perceptible. Se añade un delimitador binario para marcar el fin del mensaje.
-* PDF: Se inyecta el mensaje directamente en el campo de metadatos keywords (palabras clave) del documento.
-* Persistencia: El archivo modificado se guarda en la ruta especificada y el mensaje se registra en mensajes.jsonl.
-
-## Proceso de Revelado:
-
-El script lee los bits menos significativos (imágenes/audio) o los metadatos (PDF), reconstruye la cadena binaria, la convierte a caracteres ASCII y detiene la lectura al encontrar el delimitador o el fin del mensaje, mostrando el resultado en pantalla.
 
 ## Ejemplo de uso
 
-Escenario de ejemplo: Ocultar un mensaje en una imagen.
+Escenario: Ocultar un mensaje en un audio.
 
-1. El usuario ejecuta el script y selecciona la opción 1 cuandoe ste le pida seleccionar una de las 3.
-2. Ruta del archivo original: C:\Users\Usuario\Documents\paisaje.png
-3. Mensaje a ocultar: La clave es 1234
-4. Nombre del archivo de salida: paisaje_seguro.png
+1. Menú:
+   Usuario selecciona `1. Ocultar mensaje -> 2. Audio (.wav).`
+3. Entrada: C:\Musica\grabacion_original.wav
+4. Mensaje: `Código Rojo`
 
-Resultado en consola:
-`[OK] EXITO: Mensaje ocultado correctamente.
- -> Archivo guardado en: C:\Users\Usuario\Documents\paisaje_seguro.png`
+Salida en consola:
 
-Escenario de ejemplo: Revelar el mensaje.
+`¡Éxito! Guardado en: ...\estega_salidas\grabacion_original_2.wav`
 
-1. El usuario selecciona la opción 2.
-2. Ruta del archivo: paisaje_seguro.png
+Escenario: Escaneo forense de una carpeta de imágenes.
 
-Resultado en consola:
-`[REVELADO] Mensaje encontrado: La clave es 1234`
+1. Menú:
+   Usuario selecciona `2. Revelar mensaje -> 1. Imagen (...).`
+3. Entrada: `C:\Sospechosos\Fotos_Vacaciones.`
+4. Proceso: El script detecta que es un directorio y activa el modo para procesar todos los archivos.
+
+Salida en consola:
+
+`Escaneando carpeta: C:\Sospechosos\Fotos_Vacaciones`
+`> ENCONTRADO en playa_2.png: Coordenadas de encuentro`
+ `> ENCONTRADO en montaña_2.jpg: 123456`
+`[+] Hallazgo guardado en: ...\estega_salidas\mensajes.jsonl`
+`Proceso finalizado. 2 mensajes encontrados.`
 
 
 

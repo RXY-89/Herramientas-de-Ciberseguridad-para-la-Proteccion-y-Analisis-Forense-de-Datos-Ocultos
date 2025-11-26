@@ -1,0 +1,4 @@
+ANÁLISIS DE: src\cambios_TODOS_20251125_162253.txt
+FECHA: 2025-11-26 00:23:23.973746
+
+Error critico al conectar con OpenAI para src\cambios_TODOS_20251125_162253.txt: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}

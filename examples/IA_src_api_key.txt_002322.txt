@@ -1,0 +1,4 @@
+ANÁLISIS DE: src\api_key.txt
+FECHA: 2025-11-26 00:23:22.329486
+
+Error critico al conectar con OpenAI para src\api_key.txt: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}

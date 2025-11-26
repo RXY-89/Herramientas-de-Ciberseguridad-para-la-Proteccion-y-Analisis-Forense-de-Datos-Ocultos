@@ -1,0 +1,8 @@
+{"timestamp": "2025-11-26 09:42:04,430", "level": "INFO", "message": "Aplicaci\u00f3n iniciada"}
+{"timestamp": "2025-11-26 09:42:28,799", "level": "INFO", "message": "Ocultado en PDF", "properties": {"out": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\estega_salidas\\Cocina_medieval_y_Renacentista_2_2.pdf"}}
+{"timestamp": "2025-11-26 09:42:55,741", "level": "INFO", "message": "Hallazgo registrado en JSONL", "properties": {"mensaje": "Mensaje oculto", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\estega_salidas\\Cocina_medieval_y_Renacentista_2_2.pdf"}}
+{"timestamp": "2025-11-26 09:45:03,424", "level": "INFO", "message": "Aplicaci\u00f3n iniciada"}
+{"timestamp": "2025-11-26 09:46:00,113", "level": "INFO", "message": "Ocultado en audio", "properties": {"out": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\estega_salidas\\Decont_15_2.wav"}}
+{"timestamp": "2025-11-26 09:48:58,595", "level": "INFO", "message": "Aplicaci\u00f3n iniciada"}
+{"timestamp": "2025-11-26 09:49:31,197", "level": "INFO", "message": "Hallazgo registrado en JSONL", "properties": {"mensaje": "Mensaje oculto", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\ORIGINALES\\Cocina_medieval_y_Renacentista_2.pdf"}}
+{"timestamp": "2025-11-26 09:49:46,242", "level": "INFO", "message": "Hallazgo registrado en JSONL", "properties": {"mensaje": "Este mensaje tambien esta oculto", "archivo": "C:\\Users\\simon\\Cosas_trabajos\\PIA\\ORIGINALES\\Decont_15.wav"}}

@@ -1,0 +1,108 @@
+2025-11-26T09:46:09.532257-0600 - INFO - RUN_20251126_094608 - creating_CSV - Creando el archivo docx.csv
+2025-11-26T09:46:09.533840-0600 - INFO - RUN_20251126_094608 - creating_CSV - Creando el archivo pdf.csv
+2025-11-26T09:46:09.534750-0600 - INFO - RUN_20251126_094608 - creating_CSV - Creando el archivo img.csv
+2025-11-26T09:46:09.535566-0600 - INFO - RUN_20251126_094608 - creating_CSV - Creando el archivo aud.csv
+2025-11-26T09:46:09.536477-0600 - INFO - RUN_20251126_094608 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-26T09:46:09.576735-0600 - INFO - RUN_20251126_094608 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-26T09:46:09.577875-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de A-Brief-History-of-the-BSD-Fast-Filesystem.pdf
+2025-11-26T09:46:09.584156-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de AP1GczOQubHhmw5YWfokmiw4K9PHc2Zr5M2gFNwIkkjBmj4W7Qs53UydAT_1jQw1279-h959-s-no-gm.png
+2025-11-26T09:46:09.584344-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .png
+2025-11-26T09:46:09.584424-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de C.A.S.S.I.E.pdf
+2025-11-26T09:46:09.585849-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Canceled.wav
+2025-11-26T09:46:09.646169-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo Canceled.wav
+2025-11-26T09:46:09.646289-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Cocina_medieval_y_Renacentista.pdf
+2025-11-26T09:46:09.648319-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Decont_15.wav
+2025-11-26T09:46:09.648833-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo Decont_15.wav
+2025-11-26T09:46:09.648944-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Decont_countdown.wav
+2025-11-26T09:46:09.649480-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo Decont_countdown.wav
+2025-11-26T09:46:09.649557-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de e6eyxfsnq1n31.webp
+2025-11-26T09:46:09.649679-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:46:09.649740-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de First computer to sing Daisy Bell.wav
+2025-11-26T09:46:09.650119-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo First computer to sing Daisy Bell.wav
+2025-11-26T09:46:09.650201-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Geometría.pdf
+2025-11-26T09:46:09.675731-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de how-to-make-vegetable-stock-597.webp
+2025-11-26T09:46:09.675891-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:46:09.675963-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de images.webp
+2025-11-26T09:46:09.676062-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:46:09.676118-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de IMG_20231105_112836_528.jpg
+2025-11-26T09:46:09.748507-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de IMG_20231203_151754_677.jpg
+2025-11-26T09:46:09.749576-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de IMG_20231221_164116_326.jpg
+2025-11-26T09:46:09.750073-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de IMG_20240113_133156_911.jpg
+2025-11-26T09:46:09.750554-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de IMG_20240119_175004_218.webp
+2025-11-26T09:46:09.750721-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:46:09.750866-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de leithold (1).pdf
+2025-11-26T09:46:09.812113-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Main90.wav
+2025-11-26T09:46:09.812707-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo Main90.wav
+2025-11-26T09:46:09.812797-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de Mi-planta-naranja-lima-.pdf
+2025-11-26T09:46:09.814025-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-anthony-derosa-39577-236900.jpg
+2025-11-26T09:46:09.814298-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-anthony-derosa-39577-236900.jpg
+2025-11-26T09:46:09.814399-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-cileklipalet-34640221.jpg
+2025-11-26T09:46:09.814664-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-cileklipalet-34640221.jpg
+2025-11-26T09:46:09.814756-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-cottonbro-3298179.jpg
+2025-11-26T09:46:09.814992-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-cottonbro-3298179.jpg
+2025-11-26T09:46:09.815080-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-eva-bronzini-5975907.jpg
+2025-11-26T09:46:09.815309-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-eva-bronzini-5975907.jpg
+2025-11-26T09:46:09.815400-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-hieu-641367.jpg
+2025-11-26T09:46:09.815622-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-hieu-641367.jpg
+2025-11-26T09:46:09.815710-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-inspiredimages-132474.jpg
+2025-11-26T09:46:09.815927-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-inspiredimages-132474.jpg
+2025-11-26T09:46:09.816020-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-leeloothefirst-8210467.jpeg
+2025-11-26T09:46:09.816227-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-leeloothefirst-8210467.jpeg
+2025-11-26T09:46:09.816305-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-nasim-didar-1990505-9584964.jpeg
+2025-11-26T09:46:09.816523-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-nasim-didar-1990505-9584964.jpeg
+2025-11-26T09:46:09.816612-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-nguy-n-hi-u-1273775-6605724.jpg
+2025-11-26T09:46:09.816817-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-nguy-n-hi-u-1273775-6605724.jpg
+2025-11-26T09:46:09.816903-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-nikiemmert-15193799.jpg
+2025-11-26T09:46:09.817126-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-nikiemmert-15193799.jpg
+2025-11-26T09:46:09.817356-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-olha-ruskykh-6167221.jpeg
+2025-11-26T09:46:09.818092-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-olha-ruskykh-6167221.jpeg
+2025-11-26T09:46:09.818238-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-pixabay-534216.jpg
+2025-11-26T09:46:09.818526-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-pixabay-534216.jpg
+2025-11-26T09:46:09.818618-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-polina-tankilevitch-4187778.jpeg
+2025-11-26T09:46:09.818922-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-polina-tankilevitch-4187778.jpeg
+2025-11-26T09:46:09.819022-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-polina-tankilevitch-8599601.jpg
+2025-11-26T09:46:09.819247-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-polina-tankilevitch-8599601.jpg
+2025-11-26T09:46:09.819334-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de pexels-wolfart-20130495.jpg
+2025-11-26T09:46:09.819554-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo pexels-wolfart-20130495.jpg
+2025-11-26T09:46:09.819645-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de prueba.py
+2025-11-26T09:46:09.819740-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .py
+2025-11-26T09:46:09.819794-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de thumb16.webp
+2025-11-26T09:46:09.819877-0600 - WARNING - RUN_20251126_094608 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:46:09.819929-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de tipos-stock-almacen-2.jpg
+2025-11-26T09:46:09.820120-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo tipos-stock-almacen-2.jpg
+2025-11-26T09:46:09.820201-0600 - INFO - RUN_20251126_094608 - checking_file - Checando la metadata de xmas_jinglebells.wav
+2025-11-26T09:46:09.820603-0600 - ERROR - RUN_20251126_094608 - not_metadata_found - No se encontro metadata del archivo xmas_jinglebells.wav
+2025-11-26T09:46:09.820671-0600 - INFO - RUN_20251126_094608 - nothing_to_save - No hay metadata para guardar en docx.csv
+2025-11-26T09:46:09.820714-0600 - INFO - RUN_20251126_094608 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-26T09:46:09.822990-0600 - INFO - RUN_20251126_094608 - saving_CSV - Guardando los metadatos correspondientes en img.csv
+2025-11-26T09:49:52.825588-0600 - INFO - RUN_20251126_094952 - startup - Script iniciado correctamente, procediendo a buscar los archivos...
+2025-11-26T09:49:52.852846-0600 - INFO - RUN_20251126_094952 - checking_metadata - Iniciando a ver la metadata de los archivos...
+2025-11-26T09:49:52.853172-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de A-Brief-History-of-the-BSD-Fast-Filesystem_2.pdf
+2025-11-26T09:49:52.862673-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de C.A.S.S.I.E_2.pdf
+2025-11-26T09:49:52.864757-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de Cocina_medieval_y_Renacentista_2.pdf
+2025-11-26T09:49:52.867039-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de Decont_15.wav
+2025-11-26T09:49:52.933505-0600 - ERROR - RUN_20251126_094952 - not_metadata_found - No se encontro metadata del archivo Decont_15.wav
+2025-11-26T09:49:52.933629-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de Decont_countdown_2.wav
+2025-11-26T09:49:52.934151-0600 - ERROR - RUN_20251126_094952 - not_metadata_found - No se encontro metadata del archivo Decont_countdown_2.wav
+2025-11-26T09:49:52.934237-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de First computer to sing Daisy Bell_2.wav
+2025-11-26T09:49:52.934628-0600 - ERROR - RUN_20251126_094952 - not_metadata_found - No se encontro metadata del archivo First computer to sing Daisy Bell_2.wav
+2025-11-26T09:49:52.934723-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de how-to-make-vegetable-stock-597_2.webp
+2025-11-26T09:49:52.934837-0600 - WARNING - RUN_20251126_094952 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:49:52.934943-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de Mi-planta-naranja-lima-_2.pdf
+2025-11-26T09:49:52.936924-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-anthony-derosa-39577-236900_2.jpg
+2025-11-26T09:49:53.037690-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-cileklipalet-34640221_2.jpg
+2025-11-26T09:49:53.038853-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-cottonbro-3298179_2.jpg
+2025-11-26T09:49:53.039858-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-hieu-641367_2.jpg
+2025-11-26T09:49:53.040793-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-inspiredimages-132474_2.jpg
+2025-11-26T09:49:53.041708-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-nasim-didar-1990505-9584964_2.jpeg
+2025-11-26T09:49:53.042620-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-nikiemmert-15193799_2.jpg
+2025-11-26T09:49:53.043487-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-pixabay-534216_2.jpg
+2025-11-26T09:49:53.044347-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de pexels-polina-tankilevitch-4187778_2.jpeg
+2025-11-26T09:49:53.045156-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de thumb16_2.webp
+2025-11-26T09:49:53.045453-0600 - WARNING - RUN_20251126_094952 - incompatible_file - El script no saca metadatos de archivo .webp
+2025-11-26T09:49:53.045608-0600 - INFO - RUN_20251126_094952 - checking_file - Checando la metadata de xmas_jinglebells_2.wav
+2025-11-26T09:49:53.046642-0600 - ERROR - RUN_20251126_094952 - not_metadata_found - No se encontro metadata del archivo xmas_jinglebells_2.wav
+2025-11-26T09:49:53.046847-0600 - INFO - RUN_20251126_094952 - nothing_to_save - No hay metadata para guardar en docx.csv
+2025-11-26T09:49:53.046968-0600 - INFO - RUN_20251126_094952 - saving_CSV - Guardando los metadatos correspondientes en pdf.csv
+2025-11-26T09:49:53.048097-0600 - INFO - RUN_20251126_094952 - nothing_to_save - No hay metadata para guardar en img.csv
+2025-11-26T09:49:53.048343-0600 - INFO - RUN_20251126_094952 - nothing_to_save - No hay metadata para guardar en aud.csv

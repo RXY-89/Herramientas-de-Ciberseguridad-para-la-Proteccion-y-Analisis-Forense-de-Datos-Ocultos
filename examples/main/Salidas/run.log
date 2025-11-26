@@ -1,0 +1,5 @@
+2025-11-26T09:45:01.428992-0600 - INFO - RUN_20251126_094501 - startup - Script iniciado.
+2025-11-26T09:45:03.139447-0600 - INFO - RUN_20251126_094501 - first_run - No hay registro previo. Creando base de datos inicial.
+2025-11-26T09:45:03.140238-0600 - INFO - RUN_20251126_094501 - hashes_created - Registro creado exitosamente.
+2025-11-26T09:48:54.929353-0600 - INFO - RUN_20251126_094854 - startup - Script iniciado.
+2025-11-26T09:48:56.753906-0600 - INFO - RUN_20251126_094854 - changes_detected - Cambios encontrados. Reporte: cambios_ORIGINALES_20251126_094854.txt

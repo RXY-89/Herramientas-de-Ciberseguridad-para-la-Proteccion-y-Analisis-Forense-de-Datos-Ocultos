@@ -1,0 +1,52 @@
+2025-11-26 09:40:57 - INFO - Sistema Integrador iniciado.
+2025-11-26 09:41:01 - INFO - Seleccion menu: 6 (Salir)
+2025-11-26 09:41:18 - INFO - Sistema Integrador iniciado.
+2025-11-26 09:41:20 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-26 09:41:20 - INFO - Iniciando modulo: esteganografia.py
+2025-11-26 09:41:21 - INFO - Finalizo la ejecucion de esteganografia.py
+2025-11-26 09:41:30 - INFO - Seleccion menu: 6 (Salir)
+2025-11-26 09:42:01 - INFO - Sistema Integrador iniciado.
+2025-11-26 09:42:03 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-26 09:42:03 - INFO - Iniciando modulo: esteganografia.py
+2025-11-26 09:43:12 - INFO - Finalizo la ejecucion de esteganografia.py
+2025-11-26 09:43:36 - INFO - Seleccion menu: 6 (Salir)
+2025-11-26 09:44:57 - INFO - Sistema Integrador iniciado.
+2025-11-26 09:44:58 - INFO - Seleccion menu: 4 (Completo)
+2025-11-26 09:44:58 - INFO - Iniciando Modo Completo
+2025-11-26 09:45:00 - INFO - Ejecutando modo completo: hashes.py
+2025-11-26 09:45:03 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-26 09:45:03 - INFO - Iniciando modulo: esteganografia.py
+2025-11-26 09:46:08 - INFO - Finalizo la ejecucion de esteganografia.py
+2025-11-26 09:46:08 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-26 09:46:08 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-26 09:46:09 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-26 09:46:09 - INFO - Modo completo finalizado.
+2025-11-26 09:48:47 - INFO - Seleccion menu: 4 (Completo)
+2025-11-26 09:48:47 - INFO - Iniciando Modo Completo
+2025-11-26 09:48:53 - INFO - Ejecutando modo completo: hashes.py
+2025-11-26 09:48:56 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-26 09:48:56 - INFO - Archivos leidos del reporte: ['Decont_15.wav']
+2025-11-26 09:48:56 - INFO - Iniciando modulo: esteganografia.py
+2025-11-26 09:49:51 - INFO - Finalizo la ejecucion de esteganografia.py
+2025-11-26 09:49:51 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 19 elementos.
+2025-11-26 09:49:51 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-26 09:49:53 - INFO - Modulo metadatos.py ejecutado correctamente.
+2025-11-26 09:49:58 - INFO - Usuario decidio inyectar marcas en metadatos.
+2025-11-26 09:49:59 - INFO - Modo completo finalizado.
+2025-11-26 09:50:02 - INFO - Seleccion menu: 6 (Salir)

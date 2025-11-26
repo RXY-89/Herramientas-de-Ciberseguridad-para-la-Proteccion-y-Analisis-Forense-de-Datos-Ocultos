@@ -1,0 +1,357 @@
+2025-11-25 17:22:41 - INFO - Sistema Integrador iniciado.
+2025-11-25 17:22:47 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 17:22:47 - INFO - Iniciando Modo Completo
+2025-11-25 17:23:07 - WARNING - Modo completo abortado: ruta inexistente ni
+2025-11-25 17:23:11 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:29:41 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:29:44 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:29:44 - INFO - Iniciando Modo Completo
+2025-11-25 18:30:03 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:30:04 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:30:04 - ERROR - Error: No se encuentra steganografia.py en C:\Users\simon\Cosas_trabajos\PIA
+2025-11-25 18:30:04 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:30:04 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:30:05 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 218, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 196, in checar_metadata
+    if checar_vacio(dato):
+       ~~~~~~~~~~~~^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 168, in checar_vacio
+    for clave in diccionario:
+                 ^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+2025-11-25 18:30:05 - INFO - Modo completo finalizado.
+2025-11-25 18:32:06 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:36:04 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:36:21 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:36:21 - INFO - Iniciando Modo Completo
+2025-11-25 18:36:23 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:36:24 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:36:24 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:36:24 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:36:24 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:36:24 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:36:25 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 18:36:25 - INFO - Modo completo finalizado.
+2025-11-25 18:36:35 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:37:10 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:37:12 - WARNING - Seleccion invalida en menu: C:\Users\simon\Cosas_trabajos\PIA\ORIGINALES
+2025-11-25 18:37:16 - WARNING - Seleccion invalida en menu: C:\Users\simon\Cosas_trabajos\PIA\ORIGINALES
+2025-11-25 18:37:22 - WARNING - Seleccion invalida en menu: C:\Users\simon\Cosas_trabajos\PIA\ORIGINALES
+2025-11-25 18:37:23 - WARNING - Seleccion invalida en menu: C:\Users\simon\Cosas_trabajos\PIA\ORIGINALES
+2025-11-25 18:37:24 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:37:48 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:37:50 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:37:52 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:37:53 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:37:53 - INFO - Iniciando Modo Completo
+2025-11-25 18:37:54 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:37:55 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:37:55 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:37:55 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:37:55 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:37:55 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:37:56 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 18:37:56 - INFO - Modo completo finalizado.
+2025-11-25 18:38:26 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:38:26 - INFO - Iniciando Modo Completo
+2025-11-25 18:38:28 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:38:29 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:38:29 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:38:29 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:38:29 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:38:29 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:38:30 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 18:38:30 - INFO - Modo completo finalizado.
+2025-11-25 18:38:58 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:39:21 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:39:23 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:39:23 - INFO - Iniciando Modo Completo
+2025-11-25 18:39:27 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:39:28 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:39:28 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:39:28 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:39:28 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:39:28 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:39:29 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 18:39:29 - INFO - Modo completo finalizado.
+2025-11-25 18:42:11 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:42:13 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:42:15 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 18:42:15 - INFO - Iniciando Modo Completo
+2025-11-25 18:42:16 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 18:42:17 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 18:42:17 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:42:17 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:42:17 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 18:42:17 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 18:42:17 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 18:42:17 - INFO - Modo completo finalizado.
+2025-11-25 18:42:23 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:43:07 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:43:08 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 18:43:08 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:43:08 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 18:43:28 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 18:43:52 - INFO - Sistema Integrador iniciado.
+2025-11-25 18:43:55 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 18:43:55 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 18:43:55 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 19:34:32 - INFO - Sistema Integrador iniciado.
+2025-11-25 19:34:34 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 19:34:34 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 19:34:34 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 19:37:13 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 21:17:00 - INFO - Sistema Integrador iniciado.
+2025-11-25 21:17:02 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:17:02 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:17:11 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:17:16 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 21:17:16 - INFO - Iniciando Modo Completo
+2025-11-25 21:18:02 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 21:18:04 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 21:18:04 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:18:12 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:18:12 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 21:18:12 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 21:18:12 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 21:18:12 - INFO - Modo completo finalizado.
+2025-11-25 21:18:26 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 21:19:21 - INFO - Sistema Integrador iniciado.
+2025-11-25 21:19:23 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 21:19:23 - INFO - Iniciando Modo Completo
+2025-11-25 21:19:30 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 21:19:32 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 21:19:32 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:19:38 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:19:38 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 39 elementos.
+2025-11-25 21:19:38 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 21:19:39 - WARNING - Modulo metadatos.py genero stderr: Traceback (most recent call last):
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 241, in <module>
+    checar_metadata(archivos)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 214, in checar_metadata
+    guardar_csv(rutas_reportes[tipo],encabezados[tipo],metadatos[tipo])
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\simon\Cosas_trabajos\PIA\metadatos.py", line 55, in guardar_csv
+    writer.writerow(metadato)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 226, in writerow
+    return self.writer.writerow(self._dict_to_list(rowdict))
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\simon\Lib\csv.py", line 219, in _dict_to_list
+    wrong_fields = rowdict.keys() - self.fieldnames
+                   ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'keys'
+2025-11-25 21:19:39 - INFO - Modo completo finalizado.
+2025-11-25 21:20:01 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 21:21:19 - INFO - Sistema Integrador iniciado.
+2025-11-25 21:21:20 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 21:21:20 - INFO - Iniciando Modo Completo
+2025-11-25 21:21:38 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 21:21:39 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 21:21:39 - INFO - Archivos leidos del reporte: []
+2025-11-25 21:21:39 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:21:45 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:21:45 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 18 elementos.
+2025-11-25 21:21:45 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 21:21:45 - INFO - Modulo metadatos.py ejecutado correctamente.
+2025-11-25 21:21:45 - INFO - Modo completo finalizado.
+2025-11-25 21:22:01 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:22:01 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:22:12 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:22:19 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 21:22:19 - INFO - Iniciando Modo Completo
+2025-11-25 21:22:23 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 21:22:23 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 21:22:23 - INFO - Archivos leidos del reporte: []
+2025-11-25 21:22:23 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:27:16 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:27:16 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 18 elementos.
+2025-11-25 21:27:16 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 21:27:16 - INFO - Modulo metadatos.py ejecutado correctamente.
+2025-11-25 21:27:16 - INFO - Modo completo finalizado.
+2025-11-25 21:27:44 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:27:44 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:31:34 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:32:19 - WARNING - Seleccion invalida en menu: 
+2025-11-25 21:32:20 - WARNING - Seleccion invalida en menu: 
+2025-11-25 21:32:20 - WARNING - Seleccion invalida en menu: 
+2025-11-25 21:32:20 - WARNING - Seleccion invalida en menu: 
+2025-11-25 21:32:21 - WARNING - Seleccion invalida en menu: 
+2025-11-25 21:34:52 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:34:52 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:35:36 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:35:47 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:35:47 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:37:28 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:37:33 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:37:33 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:38:04 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:38:20 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:38:20 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:38:47 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:46:18 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:46:18 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:46:32 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:47:36 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:47:36 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:47:45 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:47:47 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:47:47 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:48:07 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:48:14 - WARNING - Seleccion invalida en menu: "C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf""C:\Users\simon\Cosas_trabajos\PIA\Cocina_medieval_y_Renacentista_2.pdf"
+2025-11-25 21:48:16 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:48:16 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:48:44 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:50:20 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:50:20 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:50:33 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:50:51 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 21:51:22 - INFO - Sistema Integrador iniciado.
+2025-11-25 21:51:23 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:51:23 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:51:34 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 21:53:31 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 21:53:31 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 21:53:43 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 22:25:23 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 22:25:23 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 22:25:38 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 22:26:21 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 22:26:21 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 22:26:33 - INFO - Sistema Integrador iniciado.
+2025-11-25 22:26:35 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 22:26:35 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 22:26:56 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 22:27:01 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 22:28:56 - INFO - Sistema Integrador iniciado.
+2025-11-25 22:28:58 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 22:28:58 - INFO - Iniciando Modo Completo
+2025-11-25 22:29:24 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 22:29:25 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 22:29:25 - INFO - Archivos leidos del reporte: []
+2025-11-25 22:29:25 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 22:29:35 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 22:29:35 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 18 elementos.
+2025-11-25 22:29:35 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 22:29:36 - INFO - Modulo metadatos.py ejecutado correctamente.
+2025-11-25 22:29:36 - INFO - Modo completo finalizado.
+2025-11-25 22:35:22 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 22:35:22 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 22:35:43 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 22:35:48 - INFO - Seleccion menu: 6 (Salir)
+2025-11-25 23:18:10 - INFO - Sistema Integrador iniciado.
+2025-11-25 23:18:13 - INFO - Seleccion menu: 2 (Esteganografia)
+2025-11-25 23:18:13 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 23:18:31 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 23:19:06 - INFO - Seleccion menu: 4 (Completo)
+2025-11-25 23:19:06 - INFO - Iniciando Modo Completo
+2025-11-25 23:19:28 - INFO - Ejecutando modo completo: hashes.py
+2025-11-25 23:19:29 - INFO - Modulo hashes.py ejecutado correctamente.
+2025-11-25 23:19:29 - INFO - Archivos leidos del reporte: []
+2025-11-25 23:19:29 - INFO - Iniciando modulo: steganografia.py
+2025-11-25 23:19:44 - INFO - Finalizo la ejecucion de steganografia.py
+2025-11-25 23:19:44 - INFO - Lista de archivos generada en C:\Users\simon\Cosas_trabajos\PIA\metadatos\archivos.txt con 17 elementos.
+2025-11-25 23:19:44 - INFO - Ejecutando modo completo: metadatos.py
+2025-11-25 23:19:44 - INFO - Modulo metadatos.py ejecutado correctamente.
+2025-11-25 23:19:44 - INFO - Modo completo finalizado.
+2025-11-25 23:20:01 - INFO - Seleccion menu: 6 (Salir)

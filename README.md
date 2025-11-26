@@ -3,6 +3,37 @@ Este proyecto tiene como propósito desarrollar un conjunto de utilidades para p
 
 Nos enfocaremos en el uso de la esteganografía como un medio para ocultamiento de mensajes y el uso de los hashes de los archivos para la verificación de integridad de los mismos, por último emplearemos la metadata para poder marcar si el archivo ha sido o no modificado.
 
+# INTEGRANTES Y ROLES DENTRO DEL PROYECTO.
+
+1. Xochilpilli Castillo Andrade
+   * Mantenimiento del repositorio, generación de los archivos de prueba del equipo, redacción del propuesta.md, reportes y README.md. Coordinación general. 
+3. Simón Wenceslao Robledo Solís
+   * Implementación del hashing con PowerShell y el parser de metadatos, además de algunas pruebas y correcciones de código.
+5. Ian Haziel Gómez Ochoa
+   * Desarrollo del módulo de detección basado en la esteganografía y AI_INT.py. 
+
+
+# Estructura del repositorio
+
+1. src:
+   * main.py (El script principal e integrador).
+   * steganografia.py (Funciones de ocultamiento o revelación).
+   * metadatos.py (Funciones de análisis).
+   * hashes.py (El script de integridad).
+   * sacar_hashes.ps1 (Motor de hash en PowerShell para la extracción delos hashes de distintos archivos).
+   * AI_INT.py (Módulo de Inteligencia Artificial, encargado de la retroalimentación, requiere una API key que se le pueda proporcionar).
+2. docs:
+   * Toda documentación del avance del proyecto.
+3. examples:
+   * Cualquier acrhivo de prueba creado para usar en el proyecto, además de los logs y salidas generadas.
+4. proposals:
+   * Contiene la propuesta inicial del proyecto.
+
+# Estado final del repositorio:
+
+Implementación de AI_INT.py a main.py, además de completar el módulo para que ambos tuvieran sus propios logs, en caso de AI_INT.py también la redacción de la solicitud a GPT-5 fue mejorada, todos los módulos funcionan de forma adecuada para su propósito y se integran correctamente dentro de main.py. Dichos módulos, sus descripciones y demás detalles se verán a continuación:
+
+
 
 # Tarea 1 - Ocultamiento y Detección de Información mediante Esteganografía
 ## Descripción general
@@ -204,6 +235,9 @@ El script utiliza comandos nativos de PowerShell (Core/Windows):
      Si se solicita guardar: Deposita todo a un archivo JSON nuevo o sobreescribe el existente.
      Si no se guarda: Convierte la tabla a JSON string y la imprime en consola.
 
+
+
+
 # Tarea 3 - Análisis Forense de Metadatos
 
 ## Descripción general
@@ -266,55 +300,114 @@ INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en do
 INFO - RUN_2023... - checking_file - Checando la metadata de vacaciones.jpg
 INFO - RUN_2023... - saving_CSV - Guardando los metadatos correspondientes en img.csv`
 
+
+
 # Complemento - Integración de Inteligencia Artificial para auditoría (AI_INT.py).
 
 ## Descripción
 
-Este módulo actúa como una especide de retroalimentación usando una API de OpenAI, permitiendo enviar el contenido de scripts (código fuente) o archivos de registro (logs) a GPT-5 (en el caso de este proyecto, se peude ajustar el modelo que uno busque usar). El script gestiona la autenticación mediante API Key, la lectura segura de archivos locales y la persistencia de los análisis generados. Su diseño permite que un operador humano obtenga retroalimentación inmediata sobre la calidad del código o una interpretación de los logs generados por los scritps.
+Este módulo actúa como una especide de retroalimentación usando una API de OpenAI, permitiendo enviar el contenido de scripts (código fuente) o archivos de registro (logs) a GPT-5 (en el caso de este proyecto, se peude ajustar el modelo que uno busque usar). El script gestiona la autenticación mediante API Key, la lectura segura de archivos locales y la persistencia de los análisis generados. A diferencia de versiones anteriores, esta actualización introduce un sistema de procesamiento por lotes y escaneo recursivo por si se quiere escanear más, es decir, el script permite al usuario construir una "cola de análisis" agregando múltiples archivos o directorios completos. El sistema filtra automáticamente archivos binarios o irrelevantes, envía el contenido a la nube para su interpretación y genera reportes detallados sobre la calidad del código, seguridad y eventos encontrados en los logs. Está hecho para solo leer los archivos de extensión: .py, .ps1, .jsonl, .txt, .log y .json, para evitar que lea los reportes que podrían contener información sensible que no se quiera compartir con la AI.
 
 ## Objetivo
-Potenciar las capacidades del analista humano mediante automatización cognitiva. Enfocado principalmente a:
-* Auditoría de código: Detectar vulnerabilidades, sugerir refactorización y explicar la lógica de los scripts del proyecto.
-* Análisis forense de Logs: Interpretar archivos de registro técnicos para identificar anomalías, errores o alertas de seguridad sin necesidad de revisión manual línea por línea.
+Potenciar las capacidades del analista humano mediante automatización de la labor del analista de seguridad (Blue Team) mediante la revisión masiva de código y logs. Enfocado principalmente a:
+
+* Auditoría de código escalonable: Revisa repositorios enteros o múltiples scripts en una sola ejecución para detectar bugs o vulnerabilidades.
+* Inteligencia de Amenazas en Logs: Procesar múltiples archivos de registro (logs) simultáneamente para correlacionar eventos, identificar anomalías, errores o alertas de seguridad sin necesidad de revisión manual línea por línea.
 
 ## Entradas y salidas
 
 ## Entradas esperadas:
 
 * Credenciales: API Key de OpenAI (se solicita una única vez y se guarda localmente en api_key.txt).
-* Archivo objetivo: Ruta y nombre del archivo a analizar (puede ser un script .py, .ps1 o un log .log, .txt).
+* Rutas de origen: El usuario puede ingresar múltiples rutas (archivos individuales o carpetas).
 * Contexto automático: El script inyecta un System Prompt predefinido que instruye a la IA para actuar como un experto en ciberseguridad y desarrollo.
+* Filtros de extensión: El sistema solo procesa archivos de texto permitidos: .py, .ps1, .jsonl, .txt, .log, .json.
 
 ## Salidas esperadas:
-* Análisis en Consola: Despliegue inmediato de la respuesta de la IA, dividida en explicación, sugerencias y análisis de errores.
-* Reporte Persistente: Generación automática de un archivo de texto en la carpeta AI_int/ (ej. analisis_run.log.txt) que contiene la respuesta completa para futura referencia.
+
+* Reportes de IA: Un archivo de texto independiente por cada archivo analizado, conteniendo la evaluación completa (explicación, mejoras y análisis de Logs).
+* Registro de las operaciones en el script: Log interno del propio script que audita qué archivos fueron procesados, ignorados o si hubo errores de conexión.
+* Consola: Vista previa del análisis y progreso del procesamiento.
 
 ## Librerías utilizadas
 
-* openai: Cliente oficial para comunicar con la API de OpenAI (GPT).
-* os: Para la gestión de rutas, verificación de existencia de archivos y creación de directorios de salida.
+* openai: Cliente oficial para comunicar con la API de OpenAI (GPT-5).
+* logging: Para la creación del registro de auditoría interno del script.
+* pathlib y os: Para la navegación recursiva de los directorios, filtrado de extensiones y manipulación de rutas.
+* datetime: Para el timestamping de los reportes generados.
 
 ## Procedimiento general
 
-1. Gestión de credenciales: Al iniciar, verifica si existe api_key.txt. Si no, solicita la clave al usuario y la almacena para sesiones futuras.
-2. Selección del objetivo: Solicita al usuario la ruta y el nombre del archivo que desea "consultar" con la IA.
-3. Lectura y preparación: Lee el contenido del archivo en formato UTF-8.
-4. Consulta a la API: Envía una petición al modelo (configurado en el código como gpt-5, aunque se puede cambiar para usar otro) con dos partes:
-   * Instrucciones del Sistema: Definen el rol de experto y las secciones requeridas (como la explicación o mejoras).
-   * Contenido del Usuario: El texto crudo del archivo leído.
-5. Recepción y almacenamiento: Recibe la respuesta, la muestra en pantalla y guarda una copia en el directorio AI_int.
+1. Configuración y autenticación: Verifica o solicita la API Key. Crea el directorio de trabajo AI_int si no existe.
+2. Construcción de la cola:
+   * El usuario ingresa rutas interactivamente.
+   * Si es una carpeta, el script la explora recursivamente, omitiendo directorios de sistema (ej. .git, __pycache__).
+   * Si es un archivo, verifica que la extensión sea válida y que la codificación sea UTF-8 (evitando binarios).
+   * Todos los archivos válidos se agregan a una lista maestra de procesamiento.
+3. Procesamiento por lotes:
+   * El script procesa la cola de archivos.
+   * Envía el contenido a la API con un prompt de experto en Ciberseguridad/DFIR.
+   * Recibe la respuesta estructurada.
+4. Guardado: Guarda el reporte completo con nombre y fecha, y muestra un resumen en pantalla.
 
 ## Ejemplo de uso
 
-Escenario: Interpretación de un log de errores.
+Escenario: Auditoría completa de un proyecto.
 
-1. Ejecución: El usuario corre AI_INT.py (o lo selecciona desde el menú principal).
-2. Configuración (Si es la primera vez):
-   * Introduce tu API Key de OpenAI: sk-proj-12345...
-3. Selección de Archivo:
-   * Introduce la ruta de la carpeta: . (directorio actual)
-   * Introduce el nombre del archivo: run.log
-4. Procesamiento:
-   * Mensaje: `"Enviando datos a OpenAI para análisis (esto puede tardar unos segundos)..."`
-5. Resultado en Consola (respuesta de la IA).
-6. Estado final: `[Éxito] El análisis se ha guardado en: AI_int\analisis_run.log.txt`
+1. Inicio: El usuario ejecuta AI_INT.py.
+2. Selección de Objetivo (Cola):
+   * Introduce ruta: C:\Proyectos\Modulo_Cripto (Carpeta)
+   * Salida: `"Explorando carpeta... Se agregaron 5 archivos válidos."
+     ¿Deseas agregar otra ruta? (s/n): s`
+   * ``Introduce ruta:` C:\Logs\error_ayer.log
+   * Salida: `"Archivo agregado."`
+3. Ejecución del Batch:
+
+`--- INICIANDO ANÁLISIS DE 6 ARCHIVOS ---
+Procesando 1/6... -> Generando reporte para hash_lib.py...
+Procesando 2/6... -> Generando reporte para main.py...`
+
+4. Resultados:
+   * En consola: Muestra los primeros 600 caracteres de cada análisis.
+   * En carpeta AI_int/: Se generan 6 archivos de texto (ej. `IA_hash_lib_py_123045.txt`) con las recomendaciones e interpretaciones.
+
+
+
+# Declaración Ética.
+
+## 1. Propósito Educativo y Defensivo
+
+Este proyecto ha sido desarrollado estrictamente con fines educativos y para el entrenamiento en ciberseguridad defensiva (Blue Team). El objetivo principal es proporcionar herramientas para:
+
+1. Comprender el funcionamiento de información oculta mediante esteganografía para mejorar su detección.
+2. Automatizar tareas de análisis forense digital (DFIR) para la verificación de integridad y auditoría de metadatos.
+3. Explorar el uso de Inteligencia Artificial como asistente en la auditoría de código seguro.
+
+
+## 2. Límites de uso autorizado
+
+El uso de este software está limitado exclusivamente a:
+* Entornos de laboratorio aislados y controlados.
+* Equipos y redes propiedad del usuario.
+* Sistemas de terceros sobre los cuales el usuario cuente con autorización explícita y por escrito para realizar pruebas de seguridad o auditoría.
+
+**Queda estrictamente prohibido utilizar estas herramientas para ocultar malware, exfiltrar información confidencial sin consentimiento, violar la privacidad de terceros o alterar la integridad de sistemas ajenos.**
+
+
+## 3. Aviso sobre el módulo de Inteligencia Artificial.
+
+El módulo AI_INT.py utiliza la API de OpenAI para procesar información. El usuario debe ser consciente de lo siguiente:
+
+* Privacidad de datos: Al utilizar este módulo, fragmentos de código y registros (logs) son enviados a servidores de terceros.
+
+**ADVERTENCIA**: Se recomienda encarecidamente NO enviar credenciales reales, claves privadas, información de identificación personal (PII) o datos corporativos sensibles a través de este módulo. El autor no se hace responsable por la exposición de datos confidenciales enviados voluntariamente por el usuario a la API, el módulo específicamente está hecho para evitar leer cualquier formato que no sea los usados para el logging y para los scripts. La modificación de este para que lea otros formatos que podrían accidentalmente contener información que no debería compartirse cae bajo responsabilidad de quien lo use.
+
+## 4. Exención de responsabilidad
+
+El código se proporciona "tal cual", sin garantía de ningún tipo. El autor y los colaboradores de este repositorio no se hacen responsables de:
+
+1. Daños directos o indirectos causados a sistemas informáticos.
+2. Pérdida de información derivada del uso de las herramientas de esteganografía o manipulación de archivos.
+3. Consecuencias legales resultantes del uso indebido, ilícito o no ético de este código.
+
+***El usuario final asume la responsabilidad total de sus acciones y del cumplimiento de las leyes locales e internacionales aplicables en materia de delitos informáticos y privacidad de datos.***

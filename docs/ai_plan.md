@@ -6,7 +6,15 @@
 
 ## Integración:
 
-* Generalizada una vez el proyecto esté terminado, enfocándose en la tercera tarea (metadata).
+* Generalizada a analizar todo log o código dentro de la ruta que se le proporcione, tener cuidado con no mandar a analizar archivos que contengan datos sensibles.
+
+
+El módulo AI_INT.py utiliza la API de OpenAI para procesar información. El usuario debe ser consciente de lo siguiente:
+
+* Privacidad de datos: Al utilizar este módulo, fragmentos de código y registros (logs) son enviados a servidores de terceros.
+
+**ADVERTENCIA**: Se recomienda encarecidamente NO enviar credenciales reales, claves privadas, información de identificación personal (PII) o datos corporativos sensibles a través de este módulo. El autor no se hace responsable por la exposición de datos confidenciales enviados voluntariamente por el usuario a la API, el módulo específicamente está hecho para evitar leer cualquier formato que no sea los usados para el logging y para los scripts. La modificación de este para que lea otros formatos que podrían accidentalmente contener información que no debería compartirse cae bajo responsabilidad de quien lo use.
+
 
 ## Tipo de modelo/API a utilizar:
 
